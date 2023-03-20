@@ -2,15 +2,19 @@ import pygame
 pygame.init()
 # 버튼 클래스
 class Button:
-    
-    def __init__(self,txt,pos):
+
+    def __init__(self,txt,pos,key_loc):
         self.font = pygame.font.Font('freesansbold.ttf',int(pygame.Surface.get_height(screen)*0.041))
         self.text = txt
         self.pos = (int((pos[0]/100)*pygame.Surface.get_width(screen)),int((pos[1]/100)*pygame.Surface.get_height(screen)))
         self.button = pygame.rect.Rect((self.pos[0], self.pos[1]), (pygame.Surface.get_width(screen)*0.325,pygame.Surface.get_height(screen)*0.07)) # 사각형 객체
+        self.key_loc = key_loc
 
     def draw(self):
-        pygame.draw.rect(screen, 'light gray', self.button,0,5)
+        if self.key_loc:
+            pygame.draw.rect(screen, 'red', self.button,0,5)
+        else:
+            pygame.draw.rect(screen, 'light gray', self.button,0,5)
         pygame.draw.rect(screen, 'dark gray', self.button,5,5)
         txt = self.font.render(self.text, True,'black')
         screen.blit(txt,(self.pos[0]+15,self.pos[1]+9))
