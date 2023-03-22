@@ -4,12 +4,13 @@ pygame.init()
 class Button:
 
     def __init__(self,txt,pos,key_loc):
-        self.font = pygame.font.Font('freesansbold.ttf',int(pygame.Surface.get_height(screen)*0.041))
+        self.getWidth = pygame.Surface.get_width(screen)
+        self.getHeight = pygame.Surface.get_height(screen)
+        self.font = pygame.font.Font('freesansbold.ttf',int(self.getHeight*0.041))
         self.text = txt
-        self.pos = (int((pos[0]/100)*pygame.Surface.get_width(screen)),int((pos[1]/100)*pygame.Surface.get_height(screen)))
-        self.button = pygame.rect.Rect((self.pos[0], self.pos[1]), (pygame.Surface.get_width(screen)*0.325,pygame.Surface.get_height(screen)*0.07)) # 사각형 객체
+        self.pos = (int((pos[0]/100)*self.getWidth),int((pos[1]/100)*self.getHeight))
+        self.button = pygame.rect.Rect((self.pos[0], self.pos[1]), (self.getWidth*0.325,self.getHeight*0.07)) # 사각형 객체
         self.key_loc = key_loc
-
     def draw(self):
         if self.key_loc:
             pygame.draw.rect(screen, 'red', self.button,0,5)
@@ -17,7 +18,7 @@ class Button:
             pygame.draw.rect(screen, 'light gray', self.button,0,5)
         pygame.draw.rect(screen, 'dark gray', self.button,5,5)
         txt = self.font.render(self.text, True,'black')
-        screen.blit(txt,(self.pos[0]+15,self.pos[1]+9))
+        screen.blit(txt,(self.pos[0]+int(self.getWidth*0.015),self.pos[1]+int((self.getHeight*0.015))))
 
     def check_clicked(self):
         if self.button.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
