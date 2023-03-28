@@ -8,8 +8,8 @@ config = configparser.RawConfigParser()
 config.read(inifile)
 
 # Set Mod
-def set_difficulty(difficulty):
-    config.set('Mod', 'Difficulty', str(difficulty))
+def set_mod(mod):
+    config.set('Mod', 'mod', str(mod))
 def set_sound(sound):
     config.set('Mod', 'Sound', str(sound))
 def set_screen(size):
@@ -51,8 +51,8 @@ def set_keymap_by_index(index, key):
         set_keymap_check(key)
 
 # Get Mod
-def get_difficulty_num():
-    return config.getint('Mod', 'Difficulty')
+def get_mod_num():
+    return config.getint('Mod', 'mod')
 def get_sound_bool():
     return config.getboolean('Mod', 'Sound')
 def get_screen_num():
@@ -60,13 +60,11 @@ def get_screen_num():
 def get_colorblind_bool():
     return config.getboolean('Mod', 'colorblind')
 
-def get_difficulty(value):
+def get_mod(value):
     if(value == 0):
-        return 'Easy'
-    elif(value == 1):
-        return 'Normal'
+        return 'GAME MOD'
     else:
-        return 'Hard'
+        return 'STORY MOD'
 def get_sound(value):
     if value:
         return "ON"
@@ -76,9 +74,9 @@ def get_screen(value):
     if(value == 0):
         return (800, 600)
     elif(value == 1):
-        return (1280, 720)
+        return (1280, 960)
     else:
-        return (1920, 1080)
+        return (1600, 1200)
 def get_colorblind(value):
     if value:
         return "ON"
@@ -87,7 +85,7 @@ def get_colorblind(value):
 
 def get_mod_all(index):
     if(index == 0):
-        return str(get_difficulty(get_difficulty_num()))
+        return str(get_mod(get_mod_num()))
     elif(index == 1):
         return str(get_sound(get_sound_bool()))
     elif(index == 2):
@@ -146,7 +144,7 @@ def get_control_list_all():
 
 # Rollback settings
 def mod_back():
-    set_difficulty(0) # Easy
+    set_mod(0) # Easy
     set_sound(True) # ON
     set_screen(0) # 800x600
     set_colorblind(False) # OFF
