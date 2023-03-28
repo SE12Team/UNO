@@ -1,4 +1,6 @@
 import pygame
+import setting
+
 pygame.init()
 # 버튼 클래스
 class Button:
@@ -32,8 +34,8 @@ def videoResize(event):
 
     
 
-width = 800
-height = 600
+width = setting.get_screen(setting.get_screen_num())[0]
+height = setting.get_screen(setting.get_screen_num())[1]
 screen = pygame.display.set_mode((width,height),pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
 
 
