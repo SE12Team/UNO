@@ -30,11 +30,14 @@ selected_option = 0
 # Main loop
 menu_flag = True # 메인 화면
 control_flag = False # 사용자 커스터마이징 입력 키 화면
+sound_flag = False # 음량 설정 화면
 
 # setting 텍스트 정렬
 def get_common_option_rec(option_text, is_option):
     option_rect = option_text.get_rect()
     if is_option:
+        # screen.get_width: 전체 스크린 가로 길이(창 가로 길이로 바꾸기)
+        # screen.get_width: 전체 스크린 세로 길이(창 세로 길이로 바꾸기)
         option_rect.center = (screen.get_width()/3, screen.get_height()/7 + i * 45)
         option_rect.left = screen.get_width()/4
     else:
@@ -142,90 +145,98 @@ def control_process(option, value, is_clicked):
             flag = False
     return flag
 
-while menu_flag:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            menu_flag = False
-        elif event.type == pygame.KEYDOWN:
-            if not control_flag:
-                # 모드 설정
-                if event.key == setting.get_keymap_up():
-                    selected_option = (selected_option - 1) % len(options)
-                elif event.key == setting.get_keymap_down():
-                    selected_option = (selected_option + 1) % len(options)
-                elif event.key == setting.get_keymap_check():
-                    menu_flag = menu_process(selected_option, True, True, False)
-                elif event.key == setting.get_keymap_right():
-                    menu_flag = menu_process(selected_option, True, False, False)
-                elif event.key == setting.get_keymap_left():
-                    menu_flag = menu_process(selected_option, False, False, False)
-            else:
-                # 키 설정
-                if event.key == setting.get_keymap_up():
-                    selected_option = (selected_option - 1) % len(options_control)
-                elif event.key == setting.get_keymap_down():
-                    selected_option = (selected_option + 1) % len(options_control)
-                else:
-                    print("event.key : ", event.key)
-                    control_flag = control_process(selected_option, event.key, False)
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
-            if control_flag:
-                option_list = options_control
-            else:
-                option_list = options
-            for i, option in enumerate(option_list):
-                # 선택된 옵션 처리
-                option_text = font.render(option, True, white)
-                option_rect = get_common_option_rec(option_text, True)
-                if control_flag:
-                    if i < len(setting.get_control_list()):
-                        value_text = font.render(initial_control[0][i], True, white)
-                    else:
-                        value_text = font.render('', True, white)
-                else:
-                    value_text = font.render(setting.get_mod_all(i), True, white)
-                value_rect = get_common_option_rec(value_text, False)
+def get_menu(main_flag, keymap_flag, sound_flag):
+    global menu_flag
+    global control_flag
 
-                if option_rect.collidepoint(mouse_pos):
-                    selected_option = i
-                    if not control_flag:
-                        menu_flag = menu_process(selected_option, True, True, True)
-                    else:
-                        control_flag = control_process(selected_option, 0, True)
-                if value_rect.collidepoint(mouse_pos):
-                    selected_option = i
-                    if not control_flag:
-                        menu_flag = change_process(selected_option, True)
-                    else:
-                        control_flag = control_process(selected_option, 0, True)
+    menu_flag = main_flag
+    control_flag = keymap_flag
     
-    # 메뉴 화면 그리기
-    screen.fill(black)
-    if control_flag:
-        option_list = options_control
-    else:
-        option_list = options
 
-    for i, option in enumerate(option_list):
-        # options 출력
-        if i == selected_option:
-            option_text = font.render(option, True, yellow)
-        else:
-            option_text = font.render(option, True, white)
-        option_rect = get_common_option_rec(option_text, True)
-        screen.blit(option_text, option_rect)
+    while menu_flag:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                menu_flag = False
+            elif event.type == pygame.KEYDOWN:
+                if not control_flag:
+                    # 모드 설정
+                    if event.key == setting.get_keymap_up():
+                        selected_option = (selected_option - 1) % len(options)
+                    elif event.key == setting.get_keymap_down():
+                        selected_option = (selected_option + 1) % len(options)
+                    elif event.key == setting.get_keymap_check():
+                        menu_flag = menu_process(selected_option, True, True, False)
+                    elif event.key == setting.get_keymap_right():
+                        menu_flag = menu_process(selected_option, True, False, False)
+                    elif event.key == setting.get_keymap_left():
+                        menu_flag = menu_process(selected_option, False, False, False)
+                else:
+                    # 키 설정
+                    if event.key == setting.get_keymap_up():
+                        selected_option = (selected_option - 1) % len(options_control)
+                    elif event.key == setting.get_keymap_down():
+                        selected_option = (selected_option + 1) % len(options_control)
+                    else:
+                        print("event.key : ", event.key)
+                        control_flag = control_process(selected_option, event.key, False)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if control_flag:
+                    option_list = options_control
+                else:
+                    option_list = options
+                for i, option in enumerate(option_list):
+                    # 선택된 옵션 처리
+                    option_text = font.render(option, True, white)
+                    option_rect = get_common_option_rec(option_text, True)
+                    if control_flag:
+                        if i < len(setting.get_control_list()):
+                            value_text = font.render(initial_control[0][i], True, white)
+                        else:
+                            value_text = font.render('', True, white)
+                    else:
+                        value_text = font.render(setting.get_mod_all(i), True, white)
+                    value_rect = get_common_option_rec(value_text, False)
 
-        #options value 출력
+                    if option_rect.collidepoint(mouse_pos):
+                        selected_option = i
+                        if not control_flag:
+                            menu_flag = menu_process(selected_option, True, True, True)
+                        else:
+                            control_flag = control_process(selected_option, 0, True)
+                    if value_rect.collidepoint(mouse_pos):
+                        selected_option = i
+                        if not control_flag:
+                            menu_flag = change_process(selected_option, True)
+                        else:
+                            control_flag = control_process(selected_option, 0, True)
+        
+        # 메뉴 화면 그리기
+        screen.fill(black)
         if control_flag:
-            if i < len(setting.get_control_list()):
-                value_text = font.render(initial_control[0][i], True, white)
-            else:
-                value_text = font.render('', True, white)
+            option_list = options_control
         else:
-            value_text = font.render(setting.get_mod_all(i), True, white)
-        value_rect = get_common_option_rec(value_text, False)
-        screen.blit(value_text, value_rect)
-    pygame.display.flip()
+            option_list = options
+
+        for i, option in enumerate(option_list):
+            # options 출력
+            if i == selected_option:
+                option_text = font.render(option, True, yellow)
+            else:
+                option_text = font.render(option, True, white)
+            option_rect = get_common_option_rec(option_text, True)
+            screen.blit(option_text, option_rect)
+
+            #options value 출력
+            if control_flag:
+                if i < len(setting.get_control_list()):
+                    value_text = font.render(initial_control[0][i], True, white)
+                else:
+                    value_text = font.render('', True, white)
+            else:
+                value_text = font.render(setting.get_mod_all(i), True, white)
+            value_rect = get_common_option_rec(value_text, False)
+            screen.blit(value_text, value_rect)
+        pygame.display.flip()
 
 pygame.quit()
