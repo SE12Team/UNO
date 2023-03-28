@@ -1,6 +1,7 @@
 import pygame
 import setting
 
+
 pygame.init()
 
 # Set the window size and caption
@@ -160,6 +161,8 @@ def get_menu(main_flag, keymap_flag, sound_flag):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 menu_flag = False
+                setting.running = False
+                
             elif event.type == pygame.KEYDOWN:
                 if not control_flag:
                     # 모드 설정
@@ -215,7 +218,7 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                             control_flag = control_process(selected_option, 0, True)
         
         # 메뉴 화면 그리기
-        screen.fill(black)
+        #screen.fill(black)
         if control_flag:
             option_list = options_control
         else:
@@ -245,4 +248,3 @@ def get_menu(main_flag, keymap_flag, sound_flag):
 # 메뉴 실행 테스트
 # get_menu(True, False, False)
 
-pygame.quit()

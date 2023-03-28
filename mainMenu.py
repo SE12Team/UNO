@@ -1,9 +1,13 @@
 from UnoGame_module import *
+import setting_menu
 import setting
 
 pygame.init()
 
-def draw_mainMenu(running,main_menu, key_loc, menu_command):
+def draw_mainMenu():
+    global main_menu
+    global key_loc
+    global menu_command
     if main_menu:
         instance_list = mainMenuBtn(key_loc)
         if menu_command != 0: # main 메뉴에서 버튼이 클릭되면 ...
@@ -11,9 +15,10 @@ def draw_mainMenu(running,main_menu, key_loc, menu_command):
             if menu_command == 1:
                 draw_singlePlay()
             elif menu_command == 2:
-                draw_setting()
+                main_menu = False
+                setting_menu.get_menu(True, False, False) #
             elif menu_command == 3:
-                pygame.quit()
+                setting.running = False
         menu_command = 0
 
     else:
@@ -24,7 +29,7 @@ def draw_mainMenu(running,main_menu, key_loc, menu_command):
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            setting.running = False
         elif event.type == pygame.VIDEORESIZE:
             videoResize(event)
         elif event.type == pygame.KEYDOWN:
@@ -77,18 +82,19 @@ timer = pygame.time.Clock() #시간을 다루는 객체 느낌?
 
 
 main_menu = True
-running = True
+
 key_loc = 0
 menu_command = 0    
 screen.blit(pygame.transform.scale(background,(width,height)),(0,0))
 
 
 
-while running:
+while setting.running:
     timer.tick(fps) # 화면의 초당 프레임 수 설정
-    draw_mainMenu(running, main_menu,key_loc,menu_command)
+    draw_mainMenu()
     
         
                 
     pygame.display.flip() # 화면을 업데이트
+
 pygame.quit() 

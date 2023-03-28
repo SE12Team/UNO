@@ -163,3 +163,5 @@ def control_back():
 def save():
     with open(inifile, 'w') as configfile:
         config.write(configfile)
+
+running = True
