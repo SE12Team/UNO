@@ -30,10 +30,10 @@ selected_option = 0
 # Main loop
 menu_flag = True # 메인 화면
 control_flag = False # 사용자 커스터마이징 입력 키 화면
-sound_flag = False # 음량 설정 화면
+music_flag = False # 음량 설정 화면
 
 # setting 텍스트 정렬
-def get_common_option_rec(option_text, is_option):
+def get_common_option_rec(option_text, is_option, i):
     option_rect = option_text.get_rect()
     if is_option:
         # screen.get_width: 전체 스크린 가로 길이(창 가로 길이로 바꾸기)
@@ -148,10 +148,13 @@ def control_process(option, value, is_clicked):
 def get_menu(main_flag, keymap_flag, sound_flag):
     global menu_flag
     global control_flag
+    global music_flag
 
+    global selected_option
+
+    music_flag = sound_flag
     menu_flag = main_flag
     control_flag = keymap_flag
-    
 
     while menu_flag:
         for event in pygame.event.get():
@@ -188,7 +191,7 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                 for i, option in enumerate(option_list):
                     # 선택된 옵션 처리
                     option_text = font.render(option, True, white)
-                    option_rect = get_common_option_rec(option_text, True)
+                    option_rect = get_common_option_rec(option_text, True, i)
                     if control_flag:
                         if i < len(setting.get_control_list()):
                             value_text = font.render(initial_control[0][i], True, white)
@@ -196,7 +199,7 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                             value_text = font.render('', True, white)
                     else:
                         value_text = font.render(setting.get_mod_all(i), True, white)
-                    value_rect = get_common_option_rec(value_text, False)
+                    value_rect = get_common_option_rec(value_text, False, i)
 
                     if option_rect.collidepoint(mouse_pos):
                         selected_option = i
@@ -224,7 +227,7 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                 option_text = font.render(option, True, yellow)
             else:
                 option_text = font.render(option, True, white)
-            option_rect = get_common_option_rec(option_text, True)
+            option_rect = get_common_option_rec(option_text, True, i)
             screen.blit(option_text, option_rect)
 
             #options value 출력
@@ -235,8 +238,11 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                     value_text = font.render('', True, white)
             else:
                 value_text = font.render(setting.get_mod_all(i), True, white)
-            value_rect = get_common_option_rec(value_text, False)
+            value_rect = get_common_option_rec(value_text, False, i)
             screen.blit(value_text, value_rect)
         pygame.display.flip()
+
+# 메뉴 실행 테스트
+# get_menu(True, False, False)
 
 pygame.quit()
