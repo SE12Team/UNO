@@ -3,9 +3,12 @@ import configparser, os
 
 thisfolder = os.path.dirname(os.path.abspath(__file__))
 inifile = os.path.join(thisfolder, 'settings.ini')
+inifile_sound = os.path.join(thisfolder, 'settings_sound.ini')
 
 config = configparser.RawConfigParser()
+config_sound = configparser.RawConfigParser()
 config.read(inifile)
+config_sound.read(inifile_sound)
 
 # Set Mod
 def set_mod(mod):
@@ -49,6 +52,33 @@ def set_keymap_by_index(index, key):
         set_keymap_time(key)
     elif index == 6:
         set_keymap_check(key)
+
+# Set Sound
+def set_music_bm(value):
+    if value > 1.0:
+        value-= 1.0
+    config_sound.set('Sound', 'BM', str(value))
+    save_sound() # 음악 설정은 바뀐 뒤 바로 적용
+def set_music_se(value):
+    if value > 1.0:
+        value-= 1.0
+    config_sound.set('Sound', 'SE', str(value))
+    save_sound() # 음악 설정은 바뀐 뒤 바로 적용
+def set_music_all(value):
+    if value > 1.0:
+        value-= 1.0
+    config_sound.set('Sound', 'all', str(value))
+    set_music_bm(value)
+    set_music_se(value)
+    save_sound() # 음악 설정은 바뀐 뒤 바로 적용
+def set_music_by_index(index, value):
+    if index == 0:
+        set_music_all(value)
+    elif index == 1:
+        set_music_bm(value)
+    elif index == 2:
+        set_music_se(value)
+    save_sound()
 
 # Get Mod
 def get_mod_num():
@@ -124,8 +154,46 @@ def get_keymap_all(index):
         return str(pygame.key.name(get_keymap_uno()))
     elif(index == 5):
         return str(pygame.key.name(get_keymap_time()))
-    else:
+    elif(index == 6):
         return str(pygame.key.name(get_keymap_check()))
+    else:
+        return ''
+
+# Get Sound
+def get_music_all():
+    if get_sound_bool():
+        value = float(config_sound.get('Sound', 'all'))
+        if value > 1.0:
+            value -= 1.0
+    else:
+        value = 0.0
+    return value
+def get_music_bm():
+    if get_sound_bool():
+        value = float(config_sound.get('Sound', 'BM'))
+        if value > 1.0:
+            value -= 1.0
+    else:
+        value = 0.0
+    return value
+def get_music_se():
+    if get_sound_bool():
+        value = float(config_sound.get('Sound', 'SE'))
+        if value > 1.0:
+            value -= 1.0
+    else:
+        value = 0.0
+    return value
+
+def get_music_total(index):
+    if index == 0:
+        return get_music_all()
+    elif index == 1:
+        return get_music_bm()
+    elif index == 2:
+        return get_music_se()
+    else:
+        return ''
 
 # Get Section's option list
 def get_mod_list():
@@ -141,6 +209,13 @@ def get_control_list_all():
         control_list.append(pygame.key.name(value))
         control_list_num.append(value)
     return (control_list, control_list_num)
+def get_music_list():
+    original_music_list = config_sound.options('Sound')
+    music_list = []
+    for option in original_music_list:
+        music_list.append(option.upper())
+    return music_list
+
 
 # Rollback settings
 def mod_back():
@@ -156,8 +231,16 @@ def control_back():
     set_keymap_uno(117) # u
     set_keymap_time(116) # t
     set_keymap_check(13) # Enter
+def music_back():
+    set_music_all(0.8)
+    set_music_bm(0.8)
+    set_music_se(0.8)
+    save_sound() # 음악 설정은 바뀐 뒤 바로 적용
 
 # Save Settings
 def save():
     with open(inifile, 'w') as configfile:
         config.write(configfile)
+def save_sound():
+    with open(inifile_sound, 'w') as configfile_sound:
+        config_sound.write(configfile_sound)
