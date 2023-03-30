@@ -244,3 +244,8 @@ def save():
 def save_sound():
     with open(inifile_sound, 'w') as configfile_sound:
         config_sound.write(configfile_sound)
+
+# 동원 기여
+running = True
+main_menu = True
+screen = pygame.display.set_mode(get_screen(get_screen_num()), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)

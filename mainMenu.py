@@ -5,25 +5,25 @@ import setting
 pygame.init()
 
 def draw_mainMenu():
-    global main_menu
+    setting.screen.blit(pygame.transform.scale(background,(width,height)),(0,0))
     global key_loc
     global menu_command
-    if main_menu:
+    if setting.main_menu:
         instance_list = mainMenuBtn(key_loc)
         if menu_command != 0: # main 메뉴에서 버튼이 클릭되면 ...
-            main_menu = False
+            setting.main_menu = False
             if menu_command == 1:
                 draw_singlePlay()
             elif menu_command == 2:
-                main_menu = False
+                setting.main_menu = False
                 setting_menu.get_menu(True, False, False) #
             elif menu_command == 3:
                 setting.running = False
         menu_command = 0
 
     else:
-        main_menu = mainMenuBtn(key_loc)
-        if menu_command > 1:
+        #setting.main_menu = mainMenuBtn(key_loc)
+        #if menu_command > 1:
             pass
 
 
@@ -34,6 +34,19 @@ def draw_mainMenu():
             videoResize(event)
         elif event.type == pygame.KEYDOWN:
             key_loc = keyControl(event,key_loc,instance_list)
+
+def keyControl(event,key_loc,instance_list):
+    global menu_command
+    if event.key == setting.get_keymap_up(): # pygame.K_UP
+        if key_loc - 1 >= 0:
+            key_loc -= 1
+    elif event.key == setting.get_keymap_down(): # pygame.K_DOWN
+        if key_loc + 1 < len(instance_list):
+            key_loc += 1
+    elif event.key == setting.get_keymap_check(): # pygame.K_RETURN
+        if pygame.Rect.colliderect(instance_list[key_loc].button,instance_list[key_loc].button):
+            menu_command = key_loc+1
+    return key_loc
 
 def mainMenuBtn(key_loc):
     global menu_command
@@ -58,34 +71,19 @@ def draw_singlePlay():
     print("싱글플레이어 모드")
 
 
-def draw_setting():
-    print("환경설정")
 
 
-def keyControl(event,key_loc,instance_list):
-    global menu_command
-    if event.type == pygame.KEYDOWN:
-        if event.key == setting.get_keymap_up: # pygame.K_UP
-            if key_loc - 1 >= 0:
-                key_loc -= 1
-        elif event.key == setting.get_keymap_down: # pygame.K_DOWN
-            if key_loc + 1 < len(instance_list):
-                key_loc += 1
-        elif event.key == setting.get_keymap_check: # pygame.K_RETURN
-            if pygame.Rect.colliderect(instance_list[key_loc].button,instance_list[key_loc].button):
-                menu_command = key_loc+1
-    return key_loc
 
 pygame.display.set_caption("UNO game")
 fps = 60
 timer = pygame.time.Clock() #시간을 다루는 객체 느낌?
 
 
-main_menu = True
+
 
 key_loc = 0
 menu_command = 0    
-screen.blit(pygame.transform.scale(background,(width,height)),(0,0))
+
 
 
 
