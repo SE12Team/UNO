@@ -241,11 +241,10 @@ def music_back():
 def save():
     with open(inifile, 'w') as configfile:
         config.write(configfile)
-<<<<<<< HEAD
-
-running = True
-=======
+        
 def save_sound():
     with open(inifile_sound, 'w') as configfile_sound:
         config_sound.write(configfile_sound)
->>>>>>> 782859f6e3b80879487119232f5072e9a5f2991a
+
+
+running = True

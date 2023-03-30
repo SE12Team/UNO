@@ -422,8 +422,5 @@ def get_menu(main_flag, keymap_flag, sound_flag):
 
 # 메뉴 실행 테스트
 # get_menu(True, False, False)
-<<<<<<< HEAD
 
-=======
 # pygame.quit()
->>>>>>> 782859f6e3b80879487119232f5072e9a5f2991a
