@@ -1,39 +1,38 @@
 from UnoGame_module import *
 import setting_menu
 import setting
+import lobby
 
 pygame.init()
 
-def draw_mainMenu():
-    setting.screen.blit(pygame.transform.scale(background,(width,height)),(0,0))
-    global key_loc
-    global menu_command
-    if setting.main_menu:
-        instance_list = mainMenuBtn(key_loc)
-        if menu_command != 0: # main 메뉴에서 버튼이 클릭되면 ...
-            setting.main_menu = False
-            if menu_command == 1:
-                draw_singlePlay()
-            elif menu_command == 2:
-                setting.main_menu = False
-                setting_menu.get_menu(True, False, False) #
-            elif menu_command == 3:
+def start_UNO():
+    while setting.running:
+        timer.tick(fps) # 화면의 초당 프레임 수 설정
+        setting.screen.blit(pygame.transform.scale(setting.background,(pygame.Surface.get_width(setting.screen),pygame.Surface.get_height(setting.screen))),(0,0))
+        global key_loc
+        global menu_command
+        if setting.main_menu:
+            instance_list = mainMenuBtn(key_loc)
+            if menu_command != 0: # main 메뉴에서 버튼이 클릭되면 ...
+                #setting.main_menu = False
+                if menu_command == 1:
+                    lobby.lobby_screen()
+                elif menu_command == 2:
+                    setting_menu.get_menu(True, False, False) #
+                elif menu_command == 3:
+                    setting.running = False
+            menu_command = 0
+
+
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 setting.running = False
-        menu_command = 0
-
-    else:
-        #setting.main_menu = mainMenuBtn(key_loc)
-        #if menu_command > 1:
-            pass
-
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            setting.running = False
-        elif event.type == pygame.VIDEORESIZE:
-            videoResize(event)
-        elif event.type == pygame.KEYDOWN:
-            key_loc = keyControl(event,key_loc,instance_list)
+            elif event.type == pygame.VIDEORESIZE:
+                videoResize(event)
+            elif event.type == pygame.KEYDOWN:
+                key_loc = keyControl(event,key_loc,instance_list)
+        pygame.display.flip() # 화면을 업데이트
 
 def keyControl(event,key_loc,instance_list):
     global menu_command
@@ -87,12 +86,10 @@ menu_command = 0
 
 
 
-while setting.running:
-    timer.tick(fps) # 화면의 초당 프레임 수 설정
-    draw_mainMenu()
-    
-        
-                
-    pygame.display.flip() # 화면을 업데이트
+
+
+
+
+start_UNO()
 
 pygame.quit() 

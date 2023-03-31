@@ -249,4 +249,5 @@ def save_sound():
 # 동원 기여
 running = True
 main_menu = True
-screen = pygame.display.set_mode(get_screen(get_screen_num()), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
+screen = pygame.display.set_mode(((get_screen(get_screen_num()))), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
+background = pygame.image.load("./image/menuBackground.png")

@@ -3,10 +3,8 @@ import setting
 
 pygame.init()
 
-width = setting.get_screen(setting.get_screen_num())[0]
-height = setting.get_screen(setting.get_screen_num())[1]
 #screen = pygame.display.set_mode((width,height),pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
-background = pygame.image.load("./image/menuBackground.png")
+
 
 # 버튼 클래스
 class Button:
@@ -36,4 +34,4 @@ class Button:
 
 def videoResize(event):
     setting.screen = pygame.display.set_mode((event.w,event.h),pygame.RESIZABLE)
-    setting.screen.blit(pygame.transform.scale(background,(event.w,event.h)),(0,0))
+    setting.screen.blit(pygame.transform.scale(setting.background,(event.w,event.h)),(0,0))
