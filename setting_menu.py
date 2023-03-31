@@ -7,10 +7,11 @@ pygame.init()
 # Set the window size and caption
 WINDOW_SIZE = setting.get_screen(setting.get_screen_num())
 pygame.display.set_caption("UNO GAME Menu")
-screen = pygame.display.set_mode(WINDOW_SIZE, pygame.RESIZABLE)
+# screen = pygame.display.set_mode(WINDOW_SIZE, pygame.RESIZABLE)
 
 # Set font
-font = pygame.font.Font(None, 40)
+# font = pygame.font.Font(None, 40)
+font = pygame.font.Font('freesansbold.ttf', int(pygame.Surface.get_height(setting.screen)*0.05))
 white = (255, 255, 255)
 black = (0, 0, 0)
 yellow = (255, 205, 18)
@@ -25,13 +26,14 @@ MOD = int(setting.get_mod_num())
 SOUND = bool(setting.get_sound_bool())
 SCREEN = int(setting.get_screen_num())
 COLORBLIND = bool(setting.get_colorblind_bool())
-volume_bar_width = screen.get_width()/6
+volume_bar_width = setting.screen.get_width()/6
 volume_bar_height = 20
+background = pygame.image.load("./image/menuBackground.png")
 
 # setting option list
 options = setting.get_mod_list() + ['Set Control', 'Set Sound Detail', 'rollback', 'save', 'close']
 options_control = setting.get_control_list() + ['rollback', 'save', 'back to menu']
-options_music = setting.get_music_list() + ['rollback', "Sound ON/OFF", 'back to menu', 'close']
+options_music = setting.get_music_list() + ['rollback', "sound", 'back to menu', 'close']
 initial_control = setting.get_control_list_all()
 selected_option = 0
 
@@ -41,11 +43,11 @@ def get_common_option_rec(option_text, is_option, i):
     if is_option:
         # screen.get_width: 전체 스크린 가로 길이(창 가로 길이로 바꾸기)
         # screen.get_width: 전체 스크린 세로 길이(창 세로 길이로 바꾸기)
-        option_rect.center = (screen.get_width()/3, screen.get_height()/7 + i * 45)
-        option_rect.left = screen.get_width()/4
+        option_rect.center = (setting.screen.get_width()/3, setting.screen.get_height()/7 + i * 45)
+        option_rect.left = setting.screen.get_width()/4
     else:
-        option_rect.center = (screen.get_width()/2, screen.get_height()/7 + i * 45)
-        option_rect.right = screen.get_width() - screen.get_width()/4
+        option_rect.center = (setting.screen.get_width()/2, setting.screen.get_height()/7 + i * 45)
+        option_rect.right = setting.screen.get_width() - setting.screen.get_width()/4
     return option_rect
 
 def get_volume(type):
@@ -61,11 +63,11 @@ def get_volume_bar(i, is_first, input_volume, text):
     global volume_bar_width
     global volume_bar_height
     text_rect = get_common_option_rec(text, False, i)
-    volume_bar_x = screen.get_width() - screen.get_width()/2.5
-    volume_bar_y = screen.get_height()/7.9 + i * 45
+    volume_bar_x = setting.screen.get_width() - setting.screen.get_width()/2.5
+    volume_bar_y = setting.screen.get_height()/7.9 + i * 45
 
     # 음량 조절 바
-    volume_bar = pygame.draw.rect(screen, white, (volume_bar_x, volume_bar_y, volume_bar_width, volume_bar_height), 2)
+    volume_bar = pygame.draw.rect(setting.screen, white, (volume_bar_x, volume_bar_y, volume_bar_width, volume_bar_height), 2)
 
     # 음량 조절 바의 현재 음량 위치
     if not is_first:
@@ -74,7 +76,7 @@ def get_volume_bar(i, is_first, input_volume, text):
 
     # 음량 조절 바의 현재 음량 위치
     volume_position = int(volume_bar_width * volume)
-    volume_bar_inner = pygame.draw.rect(screen, white, (volume_bar_x, volume_bar_y, volume_position, volume_bar_height))
+    volume_bar_inner = pygame.draw.rect(setting.screen, white, (volume_bar_x, volume_bar_y, volume_position, volume_bar_height))
 
     return volume_bar
 
@@ -220,14 +222,15 @@ def music_process(option, value, is_clicked, is_add):
         print("set rollback")
         setting.music_back()
     elif option == (music_len + 1):
-        if setting.get_sound_bool():
+        global SOUND
+        if SOUND:
             print("sound off")
-            setting.set_sound(0)
-            setting.save()
+            SOUND = False
         else:
             print("sound on")
-            setting.set_sound(1)
-            setting.save()
+            SOUND = True
+        setting.set_sound(SOUND)
+        setting.save()
     elif option == (music_len + 2):
         print("back to setting menu")
         func_music_flag = False
@@ -243,13 +246,13 @@ def change_volume_bar():
         checked_key = pygame.key.get_pressed()
         if checked_key[setting.get_keymap_check()] :
             if(selected_option < len(setting.get_music_list())):
-                music_process(selected_option, 0.0025, False, True)
+                music_process(selected_option, 0.005, False, True)
         elif checked_key[setting.get_keymap_right()]:
             if(selected_option < len(setting.get_music_list())):
-                music_process(selected_option, 0.0025, False, True)
+                music_process(selected_option, 0.005, False, True)
         elif checked_key[setting.get_keymap_left()]:
             if(selected_option < len(setting.get_music_list())):
-                music_process(selected_option, 0.0025, False, False)
+                music_process(selected_option, 0.005, False, False)
 
 def get_menu(main_flag, keymap_flag, sound_flag):
     global menu_flag
@@ -323,9 +326,12 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                     elif music_flag:
                         if i < len(setting.get_music_list()):
                             font_value = str(setting.get_music_total(i) * 100)
-                            font_color = black
+                            font_color = 'light gray' # black
                         else:
-                            font_value = ''
+                            if i == (len(setting.get_music_list()) + 1):
+                                font_value = setting.get_mod_all(1)
+                            else:
+                                font_value = ''
                     else:
                         font_value = setting.get_mod_all(i)
                     value_text = font.render(font_value, True, font_color)
@@ -351,14 +357,21 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                         elif music_flag:
                             change_volume_bar()
                             volume = get_volume(selected_option)
-                            music_process(selected_option, volume, True, True)
+                            if(i < len(setting.get_music_list()) or i == (len(setting.get_music_list()) + 1)):
+                                music_process(selected_option, volume, True, True)
                         else:
                             menu_flag = change_process(selected_option, True)
 
         change_volume_bar()
         
         # 메뉴 화면 그리기
-        #screen.fill(black)
+        # screen.fill(black)
+
+        # 동원 기여
+        setting.screen.blit(pygame.transform.scale(background,(pygame.Surface.get_width(setting.screen),pygame.Surface.get_height(setting.screen))),(0,0))
+        pygame.draw.rect(setting.screen, 'light gray',(pygame.Surface.get_width(setting.screen)*0.187,pygame.Surface.get_height(setting.screen)*0.083,pygame.Surface.get_width(setting.screen)*0.625,pygame.Surface.get_height(setting.screen)*0.83) ,0,5)
+        pygame.draw.rect(setting.screen, 'dark gray', (pygame.Surface.get_width(setting.screen)*0.187,pygame.Surface.get_height(setting.screen)*0.083,pygame.Surface.get_width(setting.screen)*0.625,pygame.Surface.get_height(setting.screen)*0.83),10,5)
+
         if control_flag:
             option_list = options_control
         elif music_flag:
@@ -371,21 +384,13 @@ def get_menu(main_flag, keymap_flag, sound_flag):
 
             # options 출력
             if i == selected_option:
-                option_text = font.render(option, True, yellow)
+                option_text = font.render(option, True, 'dark gray') # (option, True, yellow) 
             else:
                 option_text = font.render(option, True, white)
             option_rect = get_common_option_rec(option_text, True, i)
-            screen.blit(option_text, option_rect)
+            setting.screen.blit(option_text, option_rect)
 
             #options value 출력
-            if control_flag:
-                if i < len(setting.get_control_list()):
-                    value_text = font.render(initial_control[0][i], True, white)
-                else:
-                    value_text = font.render('', True, white)
-            else:
-                value_text = font.render(setting.get_mod_all(i), True, white)
-
             if control_flag:
                 if i < len(setting.get_control_list()):
                     font_value = initial_control[0][i]
@@ -394,9 +399,12 @@ def get_menu(main_flag, keymap_flag, sound_flag):
             elif music_flag:
                 if i < len(setting.get_music_list()):
                     font_value = str("{:.0f}".format(setting.get_music_total(i) * 100))
-                    font_color = black
+                    font_color = 'light gray' # black
                 else:
-                    font_value = ''
+                    if i == (len(setting.get_music_list()) + 1):
+                        font_value = setting.get_mod_all(1)
+                    else:
+                        font_value = ''
             else:
                 font_value = setting.get_mod_all(i)
 
@@ -409,14 +417,14 @@ def get_menu(main_flag, keymap_flag, sound_flag):
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
-                    volume_bar_x = screen.get_width() - screen.get_width()/2.5
+                    volume_bar_x = setting.screen.get_width() - setting.screen.get_width()/2.5
 
                     if value_rect.collidepoint(mouse_pos):
                         selected_option = i
                         (mouse_x, mouse_y) = mouse_pos
                         volume = int((mouse_x - (volume_bar_x - volume_bar_width)) / volume_bar_width * 100) # 음량 값 조절
                         value_rect = get_volume_bar(i, False, volume/100, value_text)
-            screen.blit(value_text, value_rect)
+            setting.screen.blit(value_text, value_rect)
         
         pygame.display.flip()
 
