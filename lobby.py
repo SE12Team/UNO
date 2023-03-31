@@ -58,6 +58,7 @@ class Computer:
 
 
 def lobby_screen():
+    Computer.computer_num = 0
 
     # 화면 생성
     screen = pygame.display.set_mode((pygame.Surface.get_width(setting.screen), pygame.Surface.get_height(setting.screen)))
@@ -77,7 +78,6 @@ def lobby_screen():
     # 게임 루프
     running = True
     while running:
-        Computer.computer_num = 0
         setting.screen.blit(pygame.transform.scale(setting.background,(pygame.Surface.get_width(setting.screen),pygame.Surface.get_height(setting.screen))),(0,0))
         pygame.draw.rect(setting.screen, 'light gray',(width*0.12,height*0.083,width*0.75,height*0.85) ,0,5)
         pygame.draw.rect(setting.screen, 'dark gray', (width*0.12,height*0.083,width*0.75,height*0.85),10,5)
