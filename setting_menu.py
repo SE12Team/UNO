@@ -43,10 +43,10 @@ def get_common_option_rec(option_text, is_option, i):
     if is_option:
         # screen.get_width: 전체 스크린 가로 길이(창 가로 길이로 바꾸기)
         # screen.get_width: 전체 스크린 세로 길이(창 세로 길이로 바꾸기)
-        option_rect.center = (setting.screen.get_width()/3, setting.screen.get_height()/7 + i * 45)
+        option_rect.center = (setting.screen.get_width()/3, setting.screen.get_height()/7 + i * (pygame.Surface.get_height(setting.screen)*0.08))
         option_rect.left = setting.screen.get_width()/4
     else:
-        option_rect.center = (setting.screen.get_width()/2, setting.screen.get_height()/7 + i * 45)
+        option_rect.center = (setting.screen.get_width()/2, setting.screen.get_height()/7 + i * (pygame.Surface.get_height(setting.screen)*0.08))
         option_rect.right = setting.screen.get_width() - setting.screen.get_width()/4
     return option_rect
 
@@ -147,6 +147,7 @@ def menu_process(option, is_next, is_enter, is_option):
         if is_enter:
             print("menu exit")
             flag = False
+            setting.main_menu = True
     return flag
 
 def change_control_process(option, value, is_clicked):
@@ -268,6 +269,7 @@ def get_menu(main_flag, keymap_flag, sound_flag):
     music_flag = sound_flag
 
     while menu_flag:
+        font = pygame.font.Font('freesansbold.ttf', int(pygame.Surface.get_height(setting.screen)*0.05))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 menu_flag = False
@@ -314,9 +316,9 @@ def get_menu(main_flag, keymap_flag, sound_flag):
                     option_list = options
                 for i, option in enumerate(option_list):
                     # 선택된 옵션 처리
-                    option_text = font.render(option, True, white)
+                    option_text = font.render(option, True, black)
                     option_rect = get_common_option_rec(option_text, True, i)
-                    font_color = white
+                    font_color = black
 
                     if control_flag:
                         if i < len(setting.get_control_list()):
@@ -380,13 +382,13 @@ def get_menu(main_flag, keymap_flag, sound_flag):
             option_list = options
 
         for i, option in enumerate(option_list):
-            font_color = white
+            font_color = black
 
             # options 출력
             if i == selected_option:
                 option_text = font.render(option, True, 'dark gray') # (option, True, yellow) 
             else:
-                option_text = font.render(option, True, white)
+                option_text = font.render(option, True, black)
             option_rect = get_common_option_rec(option_text, True, i)
             setting.screen.blit(option_text, option_rect)
 
