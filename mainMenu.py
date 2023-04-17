@@ -2,6 +2,7 @@ from UnoGame_module import *
 import setting_menu
 import setting
 import lobby
+import storymode
 
 pygame.init()
 
@@ -26,7 +27,7 @@ def start_UNO():
                     elif setting.get_mod_num() == 1:
                         print("멀티 플레이 화면")
                     else:
-                        print("스토리 모드 화면")
+                        storymode.drawStoryMode()
                 elif menu_command == 2:
                     setting_menu.get_menu(True, False, False) #
                 elif menu_command == 3:
@@ -96,15 +97,9 @@ def mainMenuBtn(key_loc):
 
     return instance_list
 
-<<<<<<< HEAD
-
-
-
-=======
 def draw_singlePlay():
     print(setting.get_mod(setting.get_mod_num()))
->>>>>>> 4af130415e1029ad29102354a3e0b7d519a7fcb1
-
+    
 #-------------------------------------------------------------------------------------------
 
 pygame.display.set_caption("UNO game")
