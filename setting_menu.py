@@ -84,10 +84,16 @@ def change_process(option, is_next):
     flag = True
     if option == 0:
         global MOD
-        if (MOD == 0):
-            MOD = 1
+        if is_next:
+            if MOD < 2:
+                MOD = MOD + 1
+            else:
+                MOD = 0
         else:
-            MOD = 0
+            if MOD != 0:
+                MOD = MOD - 1
+            else:
+                MOD = 2
         setting.set_mod(MOD)
     elif option == 1:
         global SOUND
