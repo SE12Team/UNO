@@ -11,7 +11,7 @@ class Game:
     def __init__(self, player_names):
         self.board = BoardClass()
         self.player_names = player_names
-        self.players = [PlayerClass(name, self.board.deck.drawCards(7)) for name in player_names]
+        self.players = [PlayerClass(name, self.board.deck.drawCards(1)) for name in player_names]
         self.current_player_index = 0
         self.button_pressed = False
 
@@ -83,14 +83,13 @@ class Game:
                     if uno_button_rect.collidepoint(event.pos):
                         uno_button_color = (255,0,0)
                         uno_button_width = 2
-                        self.time_pressed = pygame.time.get_ticks()
-                        # print("Uno pressed")
                         if len(current_player.getHand()) == 1:
                             self.button_pressed = True
 
                             if self.button_pressed:
-                                if self.players[0].uno():
-                                    self.players[1].addCardToHand(self.board.deck.popCards())
+                                if self.players[1].uno():
+                                    for i in range(1, len(self.players)):
+                                        self.players[i].addCardToHand(self.board.deck.popCards())
                                     print("Computer added 1 card")
                                     print(self.players[1].getHand()) 
                                 else:
