@@ -92,9 +92,11 @@ def get_colorblind_bool():
 
 def get_mod(value):
     if(value == 0):
-        return 'GAME MOD'
+        return 'Single Play'
+    elif(value == 1):
+        return 'Multi Play'
     else:
-        return 'STORY MOD'
+        return 'Story Play'
 def get_sound(value):
     if value:
         return "ON"
@@ -219,7 +221,7 @@ def get_music_list():
 
 # Rollback settings
 def mod_back():
-    set_mod(0) # Easy
+    set_mod(0) # SOLO MOD
     set_sound(True) # ON
     set_screen(0) # 800x600
     set_colorblind(False) # OFF

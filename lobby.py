@@ -2,8 +2,6 @@ import pygame
 import setting
 import time
 
-
-
 # 상수 정의
 EMPTY_COLOR = (255, 255, 255)
 PLAYER_COLOR = (255, 255, 0)
@@ -19,7 +17,7 @@ def input_text_on_surface(screen, font, surface_rect):
                 pygame.quit()
                 quit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if event.key == setting.get_keymap_check(): # pygame.K_RETURN
                     return text
                 elif event.key == pygame.K_BACKSPACE:
                     text = text[:-1]
