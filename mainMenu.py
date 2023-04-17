@@ -22,9 +22,9 @@ def start_UNO():
                 #setting.main_menu = False
                 if menu_command == 1:
                     if play_mod == 0:
-                        print("싱글 플레이 화면")
-                    elif play_mod == 1:
                         lobby.lobby_screen()
+                    elif play_mod == 1:
+                        print("멀티 플레이 화면")
                     else:
                         print("스토리 모드 화면")
                 elif menu_command == 2:
