@@ -103,6 +103,7 @@ class Game:
                                 print(self.players[1].getHand()) 
                                 print(self.players[0].getHand()) 
                         self.button_pressed = False 
+ 
                 elif event.type == pygame.MOUSEMOTION:
                     if uno_button_rect.collidepoint(event.pos):
                         uno_button_color = (255,0,0)
