@@ -99,8 +99,6 @@ def mainMenuBtn(key_loc):
 
 def draw_singlePlay():
     print(setting.get_mod(setting.get_mod_num()))
-    
-#-------------------------------------------------------------------------------------------
 
 pygame.display.set_caption("UNO game")
 fps = 60
