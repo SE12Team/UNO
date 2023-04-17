@@ -21,9 +21,9 @@ def start_UNO():
             if menu_command != 0: # main 메뉴에서 버튼이 클릭되면 ...
                 #setting.main_menu = False
                 if menu_command == 1:
-                    if play_mod == 0:
+                    if setting.get_mod_num() == 0:
                         lobby.lobby_screen()
-                    elif play_mod == 1:
+                    elif setting.get_mod_num() == 1:
                         print("멀티 플레이 화면")
                     else:
                         print("스토리 모드 화면")
