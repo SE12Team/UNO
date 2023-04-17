@@ -66,12 +66,11 @@ def mainMenuBtn(key_loc):
 
     return instance_list
 
-def draw_singlePlay():
-    print("싱글플레이어 모드")
 
 
 
 
+#-------------------------------------------------------------------------------------------
 
 pygame.display.set_caption("UNO game")
 fps = 60
