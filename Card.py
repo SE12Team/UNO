@@ -4,7 +4,7 @@ class CardClass:
         self.value = value
         self.image_filename = f"Cards/{color}_{value}.png"
         
-    def __repr__(self):
+    def __repr__(self): 
         return f"{self.color} {self.value}"
     
     def getImage(self):
