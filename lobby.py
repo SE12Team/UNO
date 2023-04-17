@@ -2,10 +2,19 @@ import pygame
 import setting
 import time
 
+<<<<<<< HEAD
 # 상수 정의
 EMPTY_COLOR = (255, 255, 255)
 PLAYER_COLOR = (255, 255, 0)
 COMPUTER_COLOR = (100,100,100)
+=======
+
+
+# 상수 정의
+EMPTY_COLOR = (255, 255, 255)
+PLAYER_COLOR = (255, 255, 0)
+COMPUTER_COLOR = (100,100,100) 
+>>>>>>> Jisu
 GAMESTART_COLOR = (0, 255, 0)
 BACK_COLOR = (0, 0, 255)
 
@@ -17,7 +26,11 @@ def input_text_on_surface(screen, font, surface_rect):
                 pygame.quit()
                 quit()
             elif event.type == pygame.KEYDOWN:
+<<<<<<< HEAD
                 if event.key == setting.get_keymap_check(): # pygame.K_RETURN
+=======
+                if event.key == pygame.K_RETURN:
+>>>>>>> Jisu
                     return text
                 elif event.key == pygame.K_BACKSPACE:
                     text = text[:-1]
