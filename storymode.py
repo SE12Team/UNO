@@ -108,7 +108,7 @@ def drawStoryMode():
     width = pygame.Surface.get_width(setting.screen)
     height = pygame.Surface.get_height(setting.screen)
     screen = pygame.display.set_mode((width, height))
-    background = pygame.image.load("./image/storyModeMap.jpeg")
+    background = pygame.image.load("./images/storyModeMap.jpeg")
 
 
     running = True

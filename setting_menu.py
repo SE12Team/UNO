@@ -28,7 +28,7 @@ SCREEN = int(setting.get_screen_num())
 COLORBLIND = bool(setting.get_colorblind_bool())
 volume_bar_width = setting.screen.get_width()/6
 volume_bar_height = 20
-background = pygame.image.load("./image/menuBackground.png")
+background = pygame.image.load("./images/menuBackground.png")
 
 # setting option list
 options = setting.get_mod_list() + ['Set Control', 'Set Sound Detail', 'rollback', 'save', 'close']
