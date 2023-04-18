@@ -58,6 +58,8 @@ class Game:
         countdown_event = pygame.USEREVENT +1
         pygame.time.set_timer(countdown_event, 1000)
 
+        print("current_player_index: " + str(self.current_player_index))
+        print(self.players)
         current_player = self.players[self.current_player_index]
         
         paused = True

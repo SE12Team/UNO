@@ -63,6 +63,7 @@ class Computer:
 
 def lobby_screen():
     Computer.computer_num = 0
+    player_name = ''
 
     # 화면 생성
     screen = pygame.display.set_mode((pygame.Surface.get_width(setting.screen), pygame.Surface.get_height(setting.screen)))
@@ -81,6 +82,8 @@ def lobby_screen():
 
     # 게임 루프
     running = True
+    is_back = False
+
     while running:
         setting.screen.blit(pygame.transform.scale(setting.background,(pygame.Surface.get_width(setting.screen),pygame.Surface.get_height(setting.screen))),(0,0))
         pygame.draw.rect(setting.screen, 'light gray',(width*0.12,height*0.083,width*0.75,height*0.85) ,0,5)
@@ -109,11 +112,13 @@ def lobby_screen():
                     player_name = input_text_on_surface(screen, font, surface_rect)
                     player_rect.text = player_name
                 elif gamestart_rect.is_clicked(pos):
-                    print(Computer.computer_num)
-                    #gamestart(Computer.computer_num)
+                    print("computer_num: " + str(Computer.computer_num))
+                    running = False
+                    # gamestart(Computer.computer_num)
                 elif back_rect.is_clicked(pos):
                     time.sleep(0.1)
                     running = False
+                    is_back = True
 
         # 그리기
         for empty_rect in empty_rects:
@@ -122,6 +127,8 @@ def lobby_screen():
         gamestart_rect.draw(screen, font)
         back_rect.draw(screen, font)
         pygame.display.update()
+
+        return (Computer.computer_num, player_name, running, is_back)
 
 
     

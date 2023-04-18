@@ -3,13 +3,19 @@ import setting_menu
 import setting
 import lobby
 import storymode
+import Game
 
 pygame.init()
 
 mod_list = ['Single play', 'Multi play', 'Story play']
 play_mod = 0
+lobby_flag = True
+computer_num = 0
+player_name = ''
 
 def start_UNO():
+    lobby_flag = True
+    
     while setting.running:
         timer.tick(fps) # 화면의 초당 프레임 수 설정
         setting.screen.blit(pygame.transform.scale(setting.background,(pygame.Surface.get_width(setting.screen),pygame.Surface.get_height(setting.screen))),(0,0))
@@ -23,7 +29,22 @@ def start_UNO():
                 #setting.main_menu = False
                 if menu_command == 1:
                     if setting.get_mod_num() == 0:
-                        lobby.lobby_screen()
+                        while (lobby_flag):
+                            (computer_num, player_name, lobby_flag, setting.main_menu) = lobby.lobby_screen()
+                            
+                            # 상수용
+                            computer_num = 5
+                            player_name = 'Player'
+
+                        player_names = [player_name]
+                        for i in range(computer_num):
+                            computer_name = "Computer " + str(i)
+                            player_names.append(computer_name)
+                            
+                        print("player_names: " + str(player_names))
+                        if not setting.main_menu:
+                            game = Game.Game(player_names)
+                            game.draw_game()
                     elif setting.get_mod_num() == 1:
                         print("멀티 플레이 화면")
                     else:
