@@ -1,20 +1,11 @@
 import pygame
 import setting
 import time
-
-<<<<<<< HEAD
+import Game
 # 상수 정의
 EMPTY_COLOR = (255, 255, 255)
 PLAYER_COLOR = (255, 255, 0)
 COMPUTER_COLOR = (100,100,100)
-=======
-
-
-# 상수 정의
-EMPTY_COLOR = (255, 255, 255)
-PLAYER_COLOR = (255, 255, 0)
-COMPUTER_COLOR = (100,100,100) 
->>>>>>> Jisu
 GAMESTART_COLOR = (0, 255, 0)
 BACK_COLOR = (0, 0, 255)
 
@@ -26,11 +17,7 @@ def input_text_on_surface(screen, font, surface_rect):
                 pygame.quit()
                 quit()
             elif event.type == pygame.KEYDOWN:
-<<<<<<< HEAD
                 if event.key == setting.get_keymap_check(): # pygame.K_RETURN
-=======
-                if event.key == pygame.K_RETURN:
->>>>>>> Jisu
                     return text
                 elif event.key == pygame.K_BACKSPACE:
                     text = text[:-1]
@@ -55,6 +42,7 @@ class Computer:
         self.color = color
         self.strNum = str(num) 
         self.text = text + self.strNum
+
 
     def draw(self, surface, font):
         pygame.draw.rect(surface, self.color, self.rect,0,5)
@@ -116,8 +104,9 @@ def lobby_screen():
                     player_name = input_text_on_surface(screen, font, surface_rect)
                     player_rect.text = player_name
                 elif gamestart_rect.is_clicked(pos):
-                    print(Computer.computer_num)
-                    #gamestart(Computer.computer_num)
+
+                    Game.gotoGamePy_single(Computer.computer_num)
+
                 elif back_rect.is_clicked(pos):
                     time.sleep(0.1)
                     running = False

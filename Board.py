@@ -131,8 +131,8 @@ class BoardClass:
     def gameOver(self):
         pass
 
-    # def current_card(self):
-    #     '''
-    #     현재 카드
-    #     '''
-    #     return self.deck[-1]
+    def current_card(self):
+        '''
+        현재 카드
+        '''
+        return self.deck.popCards()

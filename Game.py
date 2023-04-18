@@ -5,15 +5,51 @@ from Deck import DeckClass
 from Card import CardClass
 from CoumputerPlayer import ComputerPlayer
 import setting
-import lobby
+#스토리 모드 임시방편
+def gotoGamePy_story(stage_num):
+    player_name = []
+    for i in range(1, stage_num+1):
+        player_name.append(f"Player {i}")
+    print(player_name)
+    Gamerun = Game(player_name,stage_num)
+    Gamerun.draw_game()
 
+def gotoGamePy_single(computer_num):
+    player_name = []
+    for i in range(1, computer_num+1):
+        player_name.append(f"Player {i}")
+    print(player_name)
+    Gamerun = Game(player_name,computer_num)
+    Gamerun.draw_game()
+
+class Computer:
+    computer_num = 0
+    def __init__(self, x, y, width, height, color,text="", num=""):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+        self.strNum = str(num) 
+        self.text = text + self.strNum
+        
+
+    def draw(self, surface, font):
+        pygame.draw.rect(surface, self.color, self.rect,0,5)
+        pygame.draw.rect(surface, "dark gray", self.rect,3,5)
+        if self.text:
+            text_surface = font.render(self.text, True, "black")
+            text_rect = text_surface.get_rect(center=self.rect.center)
+            surface.blit(text_surface, text_rect)
+
+    def is_clicked(self, pos):
+        return self.rect.collidepoint(pos)
+    
 class Game:
-    def __init__(self, player_names):
+    def __init__(self, player_names,computer_num):
         self.board = BoardClass()
         self.player_names = player_names
         self.players = [PlayerClass(name, self.board.deck.drawCards(1)) for name in player_names]
         self.current_player_index = 0
         self.button_pressed = False
+        self.computer_num = computer_num
 
         pygame.init()
         self.width = pygame.Surface.get_width(setting.screen)
@@ -23,26 +59,6 @@ class Game:
         pygame.display.set_caption("Uno Game")
         self.clock = pygame.time.Clock()
         self.total_time = 15
-
-    def run(self):
-        while not self.is_game_over():
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
-
-            self.draw_game()
-            self.handle_events()
-            pygame.display.update()
-
-        self.show_winner()
-
-    def is_game_over(self):
-        for player in self.players:
-            if len(player.getHand()) == 0:
-                self.board.winner = player
-                return True
-        return False
 
     def draw_game(self):
         # 게임 화면 그리기
@@ -54,10 +70,19 @@ class Game:
         uno_button_text_rect = uno_button_text.get_rect(center=uno_button_rect.center)
         uno_button_width = 0
         
+        # 더미 덱
+        deck_image = pygame.image.load('./images/deck.png')
+        deck_image = pygame.transform.scale(deck_image, (self.width*0.16,self.height*0.3))
+        deck_rect = deck_image.get_rect()
+        deck_rect.x = self.width*0.29
+        deck_rect.y = self.height*0.2
+        
         # 타이머
         countdown_event = pygame.USEREVENT +1
         pygame.time.set_timer(countdown_event, 1000)
 
+        print("current_player_index: " + str(self.current_player_index))
+        print(self.players)
         current_player = self.players[self.current_player_index]
         
         paused = True
@@ -80,6 +105,9 @@ class Game:
                         pygame.time.set_timer(countdown_event, 1000)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                 # 우노버튼 위치에 올리면 색 변하기
+                    if deck_rect.collidepoint(event.pos):
+                            print('pressed')
+                            self.players[0].addCardToHand(self.board.deck.popCards())
                     if uno_button_rect.collidepoint(event.pos):
                         uno_button_color = (255,0,0)
                         uno_button_width = 2
@@ -115,14 +143,37 @@ class Game:
             # 그리기
             time_text = self.font.render(str(self.total_time), True, (0, 0, 0))
             self.screen.blit(time_text, (self.width*0.05,self.height*0.08))
-            self.draw_deck()            
+            self.draw_deck()     
+
+            self.screen.blit(deck_image, deck_rect)       
             pygame.draw.rect(self.screen, uno_button_color, uno_button_rect, 0, 2)
             pygame.draw.rect(self.screen, (100,100,100), uno_button_rect, uno_button_width, 2)
             self.screen.blit(uno_button_text, uno_button_text_rect)
-            self.draw_player_hands()
+            self.draw_player_hands(self.computer_num)
             pygame.display.flip()
 
             self.clock.tick(60)
+    def run(self):
+        while not self.is_game_over():
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+            self.draw_game()
+            self.handle_events()
+            pygame.display.update()
+
+        self.show_winner()
+
+    def is_game_over(self):
+        for player in self.players:
+            if len(player.getHand()) == 0:
+                self.board.winner = player
+                return True
+        return False
+
+    
 
     def uno_pressed(self):
         if self.button_pressed:
@@ -133,31 +184,22 @@ class Game:
      
 
     def draw_deck(self):
-        deck_image = pygame.image.load('./images/deck.png')
-        deck_image = pygame.transform.scale(deck_image, (self.width*0.16,self.height*0.3))
-        deck_rect = deck_image.get_rect()
-        deck_rect.x = self.width*0.29
-        deck_rect.y = self.height*0.2
+        width = pygame.Surface.get_width(setting.screen)
+        height = pygame.Surface.get_height(setting.screen)
         current_card = pygame.image.load('./images/Red_0.png') # 현재 카드랑 이미지랑 연결 필요 
-        #current_card = BoardClass.current_card
-        current_card = pygame.transform.scale(current_card, (self.width*0.16,self.height*0.3))
+        
+        #tmp = BoardClass()
+        #current_card = tmp.current_card()
+        current_card = pygame.transform.scale(current_card, (width*0.16,height*0.3))
         self.screen.blit(current_card, (self.width*0.5,self.height*0.2))
 
 
-        for event in pygame.event.get():  
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if deck_rect.collidepoint(event.pos):
-                    deck_rect.y = self.height*0.15
-            elif event.type == pygame.MOUSEMOTION:
-                if deck_rect.collidepoint(event.pos):
-                   deck_rect.y = self.height*0.15
-                else:
-                    deck_rect.y = self.height*0.2
+      
 
-        self.screen.blit(deck_image, deck_rect)
+        
        
     
-    def draw_player_hands(self):
+    def draw_player_hands(self,computer_num):
         pygame.draw.rect(setting.screen, (228,220,207), (0,self.height*0.6,self.width*0.75,self.height*0.4))
         You_text = self.font.render('You', True, (0,0,0))
         self.screen.blit(You_text, (self.width*0.05,self.height*0.63))
@@ -178,7 +220,7 @@ class Game:
             card.draw(self.screen)
         pygame.display.update(card)
 
-        com_rects = [ComHands(self.players, self.width*0.75, 0+i*(self.height*0.2), self.width*0.25, self.height*0.2, (0,0,0), 'Computer', i+1) for i in range(5)]
+        com_rects = [ComHands(self.players, self.width*0.75, 0+i*(self.height*0.2), self.width*0.25, self.height*0.2, (0,0,0), 'Computer', i+1) for i in range(computer_num)]
         for com_rect in com_rects:
             com_rect.draw(self.screen)  
 
@@ -230,7 +272,7 @@ class Game:
         pass
 
 
-class ComHands (lobby.Computer):
+class ComHands (Computer):
     def __init__(self, players, x, y, width, height, color, text="", num=""):
         super().__init__(x, y, width, height, color, text, num)
         self.font = pygame.font.Font('freesansbold.ttf', int(pygame.Surface.get_height(setting.screen)*0.02))

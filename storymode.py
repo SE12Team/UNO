@@ -3,6 +3,7 @@ import setting
 import pygame_gui
 import pygame.freetype
 import time
+import Game
 
 pygame.init()
 pygame.font.init()
@@ -81,6 +82,7 @@ def askBattle(screen,click_stage_num):
             elif event.type == pygame.KEYDOWN:
                 pass
         if yesBox.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
+            Game.gotoGamePy_story(click_stage_num)
             print("YES!",click_stage_num)
             time.sleep(0.1)
         elif noBox.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:

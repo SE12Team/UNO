@@ -1,6 +1,7 @@
 import pygame
 import configparser, os
 
+
 thisfolder = os.path.dirname(os.path.abspath(__file__))
 inifile = os.path.join(thisfolder, 'settings.ini')
 inifile_sound = os.path.join(thisfolder, 'settings_sound.ini')
@@ -253,3 +254,4 @@ running = True
 main_menu = True
 screen = pygame.display.set_mode(((get_screen(get_screen_num()))), pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
 background = pygame.image.load("./images/menuBackground.png")
+play_background = pygame.image.load("./images/playBackground.png")
