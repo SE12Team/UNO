@@ -314,6 +314,3 @@ class Loadimg:
     
     
 
-if __name__ == '__main__':
-    uno = Game(["Player 1", "Player 2"])
-    uno.run()

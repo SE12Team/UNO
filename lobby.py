@@ -1,24 +1,11 @@
 import pygame
 import setting
 import time
-<<<<<<< HEAD
 import Game
-=======
-
->>>>>>> 2d31c3b5c2198ba90d664638860146a8a721b0f5
 # 상수 정의
 EMPTY_COLOR = (255, 255, 255)
 PLAYER_COLOR = (255, 255, 0)
 COMPUTER_COLOR = (100,100,100)
-<<<<<<< HEAD
-=======
-
-
-# 상수 정의
-EMPTY_COLOR = (255, 255, 255)
-PLAYER_COLOR = (255, 255, 0)
-COMPUTER_COLOR = (100,100,100)
->>>>>>> 2d31c3b5c2198ba90d664638860146a8a721b0f5
 GAMESTART_COLOR = (0, 255, 0)
 BACK_COLOR = (0, 0, 255)
 
