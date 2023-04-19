@@ -38,8 +38,8 @@ class ComputerPlayer(PlayerClass):
         else:
             return False
     
-    # def combo(self):
-    #     combos = []
+     #def combo(self):
+        combos = []
     #     for i in range(2, len(self.cards) + 1):
     #         for subset in itertools.combinations(self.cards, i):
     #             if self.isValidCombo(subset):
