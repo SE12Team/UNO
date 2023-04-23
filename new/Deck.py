@@ -93,10 +93,10 @@ class DeckClass:
     def count(self):
         return len(self.cards)
     
-    def deal(self, card_value, players):
-        # card_value 숫자만큼 players에게 전달
-        for value in range(card_value):
-            for player in players:
-                card = self.draw_card()
-                # 플레이어 댁에 카드 추가
-                # player.hand.add_card(card)
+    # def deal(self, card_value, players):
+    #     # card_value 숫자만큼 players에게 전달
+    #     for value in range(card_value):
+    #         for player in players:
+    #             card = self.draw_card()
+    #             # 플레이어 댁에 카드 추가
+    #             # player.hand.add_card(card)
