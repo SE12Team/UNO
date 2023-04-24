@@ -71,6 +71,7 @@ class DeckClass:
                 card = Card(color, value)
                 for _ in range(2):
                     self.cards.append(card)
+                    
             for skill in skills:
                 card = Card(color, skill)
                 for _ in range(2):
