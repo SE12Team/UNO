@@ -61,7 +61,8 @@ class DeckClass:
     
     def generate(self):
         colors = ['Red', 'Green', 'Yellow', 'Blue']
-        values = [str(num) for num in range(0, 10)] + ['Skip', 'Reverse', 'Draw Two', 'Change'] # 플레이어 건너뛰기, 진행 방향 반전, 카드 2개 뽑기, 상대와 카드 변경
+        values = [str(num) for num in range(0, 10)]
+        skills = ['Skip', 'Reverse', 'Draw Two', 'Change'] # 플레이어 건너뛰기, 진행 방향 반전, 카드 2개 뽑기, 상대와 카드 변경
         wilds = ['Wild', 'Wild Draw Four', 'Wild Draw Two']
         
         # 모든 색상의 숫자 카드는 0을 제외하고 2개씩 생성
@@ -71,14 +72,15 @@ class DeckClass:
                 self.cards.append(card)
                 if value != '0':
                     self.cards.append(card)
+            for skill in skills:
+                card = Card(color, skill)
+                self.cards.append(card)
         
         # 와일드 카드 4개 생성
         for wild in wilds:
             for _ in range(4):
                 card = Card(wild, 'Any')
                 self.cards.append(card)
-
-        self.shuffle()
 
     def shuffle(self):
         random.shuffle(self.cards)
