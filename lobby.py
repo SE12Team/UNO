@@ -1,7 +1,7 @@
 import pygame
 import setting
 import time
-import Game
+
 import gameLoop
 # 상수 정의
 EMPTY_COLOR = (255, 255, 255)

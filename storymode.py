@@ -3,7 +3,7 @@ import setting
 import pygame_gui
 import pygame.freetype
 import time
-import Game
+
 
 pygame.init()
 pygame.font.init()

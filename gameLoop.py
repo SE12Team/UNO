@@ -162,5 +162,4 @@ def stopGameLoop(screen,time_delta):
         esc_manager.update(time_delta)
         pygame.display.flip()
             
-gameUiLoop(3)
 
