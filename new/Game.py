@@ -33,12 +33,12 @@ class Game:
         self.players = players
         self.turn = Turn(players)
 
-    def start(self):
-        # 게임을 시작함
+    def start(self, card_num):
+        # 덱을 생성 카드 분배
         self.deck.generate()
         # for player in self.players:
             # player.draw(self.deck, 7)
-        self.deck.deal(7, self.players)
+        self.deck.deal(card_num, self.players)
 
     def play(self, card):
         # 카드를 놓음
