@@ -1,7 +1,7 @@
 import random
 from player import Player 
 
-class AI(Player):
+class Computer(Player):
     def __init__(self, name, hand):
         super().__init__(name, hand)
     '''
@@ -39,11 +39,3 @@ class AI(Player):
     def paly_card(self, card):
         self.hand.remove(card)
 
-
-    '''
-    computer가 선택할 카드를 결정
-    Parameter: 
-    Return: 
-    '''
-    def take_turn(self, game_state):
-        pass

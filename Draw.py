@@ -1,7 +1,7 @@
 import random
 
 '''
-덱 클래스의 generate()에서 마지막 shuffle을 삭제하고 작성함
+덱 클래스의 generate()에서 마지막 shuffle을 삭제하고 작성함.
 싱글 플레이일 때 게임 클래스나 어디에서 덱을 셔플 해주고 시작해야함. 
 덱 안에 스킬 카드가 뒤로 오도록 하기 
 '''
@@ -10,9 +10,9 @@ class Draw:
     '''
     스토리 모드에서 처음 플레이어들에게 카드를 draw하는 부분
     Parameter: deck -> list, stage -> string
-    Return: None
+    Return: None 
     '''
-    def __init__(self, deck, stage):
+    def __init__(self, deck, stage): 
         self.deck = deck
         self.cards = []
 
@@ -37,4 +37,4 @@ class Draw:
                 card = self.deck.pop()
                 self.cards.append(card)
         elif stage == '4':
-            pass
+            pass   
