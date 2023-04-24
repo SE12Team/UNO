@@ -34,9 +34,17 @@ import pygame
             1. angle: 수정할 카드 각도
         return:
             none
+    
+    5. check_isWild(self)
+        usage:
+            현재 카드가 와일드 카드인지 확인.
+        parameter:
+            none
+        return:
+            BOOLEAN값
 '''
 
-class CardClass:
+class Card:
     def __init__(self, color, value, ratio=0.4):
         self.color = color # 카드 색
         self.value = value # 카드 숫자
@@ -76,3 +84,10 @@ class CardClass:
         self.image_front = pygame.transform.rotate(self.image_front, angle)
         self.image_back = pygame.transform.rotate(self.image_back, angle)
         self.image = pygame.transform.rotate(self.image, angle)
+    
+    # 와일드 카드인 경우 스크린에 색 고르는 창 출력, 선택한 색 게임 보드에 반영 필요
+    def check_isWild(self):
+        if 'Wild' in self.color:
+            return True
+        else:
+            return False
