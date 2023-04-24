@@ -1,0 +1,109 @@
+{
+    "@Computer_panels":
+    {
+        
+    },
+    "@Computer_panerl_fonts":
+    {
+        "font":
+        {
+            "name":"fira_code",
+            "size":"15",
+            "bold": "0",
+             "italic": "0"
+        }
+    },
+    "#UserBoard":
+    {
+        "colours":
+        {
+            "dark_bg" : "#5C8B5C"
+
+
+        },
+        "misc":
+        {
+            "border_width": "0"
+        }
+    },
+    "#MainBoard":
+    {
+        "colours":
+        {
+            "dark_bg" : "#326450"
+
+        },
+        "misc":
+        {
+            "border_width": "0"
+        }
+    },
+    "#UserName":
+    {
+        "font":
+        {
+            "name":"fira_code",
+            "size":"30",
+            "bold": "1",
+             "italic": "0"
+        }
+    },
+    "#CurrentTurn":
+    {
+        "colours":
+        {
+            "normal_text":"#fffcfc",
+            "text_shadow":"1"
+        },
+        "font":
+        {
+            "name":"fira_code",
+            "size":"30",
+            "bold": "1",
+             "italic": "0"
+        }
+    },
+    "#Timertime":
+    {
+        "colours":
+        {
+            "normal_text":"#e6052e",
+            "text_shadow":"1"
+        },
+        "font":
+        {
+            "name":"fira_code",
+            "size":"20",
+            "bold": "1",
+             "italic": "0"
+        }
+    },
+    "#ESC_window":
+    {
+        "colours":
+        {
+            "dark_bg":"#7d8a85"
+        }
+    },
+    "#ESC_label":
+    {
+        "colour":
+        {
+            "normal_text":"#030000"
+        },
+        "font":
+        {
+            "name":"fira_code",
+            "size":"70",
+            "bold": "1",
+            "italic": "0"
+        }
+    },
+    "@ESC_button":
+    {
+        "misc":
+        {   
+            "shape":"rounded_rectangle"
+        }
+    }
+}

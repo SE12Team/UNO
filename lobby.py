@@ -2,6 +2,7 @@ import pygame
 import setting
 import time
 import Game
+import gameLoop
 # 상수 정의
 EMPTY_COLOR = (255, 255, 255)
 PLAYER_COLOR = (255, 255, 0)
@@ -104,8 +105,8 @@ def lobby_screen():
                     player_name = input_text_on_surface(screen, font, surface_rect)
                     player_rect.text = player_name
                 elif gamestart_rect.is_clicked(pos):
-
-                    Game.gotoGamePy_single(Computer.computer_num)
+                    pass
+                    gameLoop.gameUiLoop(Computer.computer_num)
 
                 elif back_rect.is_clicked(pos):
                     time.sleep(0.1)
