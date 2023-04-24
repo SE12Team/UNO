@@ -65,16 +65,16 @@ class DeckClass:
         skills = ['Skip', 'Reverse', 'Draw Two', 'Change'] # 플레이어 건너뛰기, 진행 방향 반전, 카드 2개 뽑기, 상대와 카드 변경
         wilds = ['Wild', 'Wild Draw Four', 'Wild Draw Two']
         
-        # 모든 색상의 숫자 카드는 0을 제외하고 2개씩 생성
+        # 모든 색상의 숫자 카드는 2개씩 생성
         for color in colors:
             for value in values:
                 card = Card(color, value)
-                self.cards.append(card)
-                if value != '0':
+                for _ in range(2):
                     self.cards.append(card)
             for skill in skills:
                 card = Card(color, skill)
-                self.cards.append(card)
+                for _ in range(2):
+                    self.cards.append(card)
         
         # 와일드 카드 4개 생성
         for wild in wilds:
