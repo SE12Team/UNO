@@ -1,0 +1,14 @@
+{
+    "#Bule_0":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images",
+                "resource":"Blue_0.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    }
+}
