@@ -94,9 +94,9 @@ class DeckClass:
 
         return self.cards.pop(0)
 
+    # 덱 초기화, 카드 리스트를 비움
     def reset(self):
         self.cards = []
-        self.generate()
 
     # 현재 덱의 카드 개수를 반환
     def count(self):
@@ -109,3 +109,4 @@ class DeckClass:
                 card = self.draw_card()
                 # 플레이어 댁에 카드 추가
                 # player.hand.add_card(card)
+    

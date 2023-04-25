@@ -1,5 +1,5 @@
 import random
-from player import Player 
+from Player import Player 
 
 class Computer(Player):
     def __init__(self, name, hand):

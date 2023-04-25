@@ -5,7 +5,26 @@ class Player:
 
     def getHand(self):
         return self.hand
-    
+
+    '''
+    처음 게임 시작 시 카드를 분배
+    Parameter: deck -> list, num -> int
+    Return: None
+    '''
+    def setCard(self, deck, num):
+        for _ in range(num):
+            card = deck.draw_card()
+            self.hand.append(card)
+
+    '''
+    덱에서 카드를 뽑아 player 손에 추가
+    Parameter: deck -> list
+    Return: None
+    '''
+    def addCard(self, deck):
+        card = deck.draw_card()
+        self.hand.append(card)
+
     '''
     덱에서 카드를 뽑아 player 손에 추가
     Parameter: deck -> list
@@ -22,7 +41,7 @@ class Player:
     '''
     def canPlay(self, color, value):
         for card in self.hand:
-            if "Wild" in card:
+            if "Wild" in card.color:
                 return True
             elif color in card or value in card:
                 return True
