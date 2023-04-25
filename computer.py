@@ -13,7 +13,7 @@ class Computer(Player):
         matching_card = self.get_matching_card(discard_pile[-1])
         # 매칭되는 카드가 없으면 None 반환
         if not matching_card:
-            self.addCard(deck) # 덱에서 카드를 가져와 추가
+            self.setCard(deck) # 덱에서 카드를 가져와 추가
             return None
         # 무작위로 카드를 선택하여 플레이 
         decision_card = random.choice(matching_card)

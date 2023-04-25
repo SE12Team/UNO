@@ -11,52 +11,45 @@ class Player:
     Parameter: deck -> list, num -> int
     Return: None
     '''
-    def setCard(self, deck, num):
+    # num 지정하지 않을 시 한 장만 손패에 가져옴
+    def setCard(self, deck, num=1):
         for _ in range(num):
             card = deck.draw_card()
             self.hand.append(card)
+        return deck
 
     '''
     덱에서 카드를 뽑아 player 손에 추가
     Parameter: deck -> list
     Return: None
     '''
-    def addCard(self, deck):
-        card = deck.draw_card()
-        self.hand.append(card)
-
-    '''
-    덱에서 카드를 뽑아 player 손에 추가
-    Parameter: deck -> list
-    Return: None
-    '''
-    def addCard(self, deck):
-        card = deck.drawCard() # deck에서 pop한 것과 연결
-        self.hand.append(card)
+    # def addCard(self, deck):
+    #     card = deck.draw_card()
+    #     self.hand.append(card)
 
     '''
     player가 카드를 낼 수 있는지 확인
     Parameter: color -> string, value -> string
     Return: boolean
     '''
-    def canPlay(self, color, value):
-        for card in self.hand:
-            if "Wild" in card.color:
-                return True
-            elif color in card or value in card:
-                return True
-        return False
+    def canPlay(self, card_index, deck_card):
+        can_play = False
+        card = self.hand[card_index]
+
+        if "Wild" in card:
+            can_play = True
+        elif deck_card.color in card or deck_card.value in card:
+            can_play = True
+        return can_play
     
     '''
     player가 카드를 플레이
     Parameter: card_index, discard_pile, color, value
     Return: boolean
     '''
-    def playCard(self, card_index, discard_pile, color, value):
-        card = self.hand[card_index]
-        if self.canPlay(color, value):
+    def playCard(self, card_index, deck_card):
+        if self.canPlay(card_index, deck_card):
             self.hand.pop(card_index) # 손에서 카드 제거
-            discard_pile.append(card) # 카드를 카드 더미에 추가
             return True
         else:
             print("선택한 카드를 플레이할 수 없음")
