@@ -78,7 +78,7 @@ def gameUiLoop(computer_num):
         for j in range(5):
             card_button = cardUi.computerCardUi(card_manager,width,height,i,len(computer_instance_list[i].hand))
             computer_card_button_list[i].append(card_button)
-            computer_instance_list[i].addCard(deck)
+            computer_instance_list[i].setCard(deck)
 
 
     #Game 메인 루프 실행 전 변수 선언
@@ -239,7 +239,7 @@ def stopGameLoop(screen,time_delta):
         pygame.display.flip()
             
 def player_draw_card_deck(player,currentTurn,deck,card_manager,width,height,Player_list):
-                    player.addCard(deck)
+                    player.setCard(deck)
                     tmp = player.hand[-1]
                     color = tmp.color
                     value = tmp.value

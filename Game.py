@@ -1,5 +1,7 @@
 import pygame
 from Deck import Deck
+from Player import Player
+from computer import Computer
 
 class Turn:
     def __init__(self, players):
@@ -7,103 +9,64 @@ class Turn:
         self.players = players
         self.current_player = players[0]
         self.direction = 1
+        self.color = ''
 
     def next_direction(self):
         # 다음 플레이어로 턴을 넘김
         index = self.players.index(self.current_player)
         index = (index + self.direction) % len(self.players)
         self.current_player = self.players[index]
-        return self.current_player
+        return self.direction
 
     def skip_direction(self):
         # 한 턴 건너뛰기
         index = self.players.index(self.current_player)
         index = ((index + 1) + self.direction) % len(self.players)
         self.current_player = self.players[index]
-        return self.current_player
+        return self.direction
 
     def reverse_direction(self):
         # 턴 방향을 반대로 바꿈
         self.direction *= -1
 
-
 class Game:
     def __init__(self, players):
-        self.deck = Deck()
+        self.dumy_deck = Deck() # 처음 생성되는 카드 리스트들 모인 곳
+        self.discard_deck = Deck()
+        self.discard_deck.reset() # 버려진 카드들 모이는 곳
+
         self.players = players
         self.turn = Turn(players)
+        self.winner = self.players[0]
 
-    def start(self, card_num):
-        # 덱을 생성 카드 분배
+    # 덱 생성 및 카드 분배
+    def distrib_card(self, card_num):
         self.deck.generate()
-        # for player in self.players:
-            # player.draw(self.deck, 7)
-        self.deck.deal(card_num, self.players)
-
-    def play(self, card):
-        # 카드를 놓음
-        current_player = self.turn.current_player
-
-        if card.can_play(self):
-            current_player.play(card, self)
-            if current_player.is_winner():
-                print(current_player.name, " wins!")
-                return True
-
-            if isinstance(current_player, ComputerPlayer):
-                self.computer_player_move()
-            else:
-                self.turn.next_player()
-
-            return False
-
-    def computer_player_move(self):
-        # 컴퓨터 플레이어가 카드를 놓음
-        possible_plays = self.computer_player.get_possible_plays(self)
-        if possible_plays:
-            card = self.computer_player.choose_card_to_play(possible_plays)
-            self.play(card)
-        else:
-            self.computer_player.draw(self.deck, 1)
-            self.turn.next_player()
-
-class Game:
-    def __init__(self, players, computer_player):
-        self.deck = Deck()
-        self.players = players
-        self.computer_player = computer_player
-        self.turn = Turn(players)
-
-    def start(self):
-        # 게임을 시작함
         self.deck.shuffle()
         for player in self.players:
-            player.draw(self.deck, 7)
-        self.computer_player.draw(self.deck, 7)
+            self.deck = player.setCard(self.deck, card_num)
 
-    def play(self, card):
-        # 카드를 놓음
-        current_player = self.turn.current_player
+    def show_winner(self):
+        print(self.winner, " wins!")
 
-        if card.can_play(self):
-            current_player.play(card, self)
-            if current_player.is_winner():
-                print(current_player.name, " wins!")
-                return True
+    def is_game_over(self):
+        is_end = False
+        for player in self.players:
+            if len(player.getHand()) == 0:
+                self.winner = player
+                self.show_winner()
+                is_end = True
+        return is_end
 
-            if isinstance(current_player, ComputerPlayer):
-                self.computer_player_move()
-            else:
-                self.turn.next_player()
-
-            return False
-
-    def computer_player_move(self):
-        # 컴퓨터 플레이어가 카드를 놓음
-        possible_plays = self.computer_player.get_possible_plays(self)
-        if possible_plays:
-            card = self.computer_player.choose_card_to_play(possible_plays)
-            self.play(card)
-        else:
-            self.computer_player.draw(self.deck, 1)
-            self.turn.next_player()
+    # discard_deck에 카드 추가
+    def add_to_discard(self, card):
+        self.discard_deck.addCard(card)
+    
+    # dumy_deck에서 카드 가져오기
+    def pop_from_dumy(self, iter_num=1):
+        for _ in range(iter_num):
+            self.dumy_deck().draw_card()
+    
+    # 색 저장하기
+    def set_color(self, color):
+        self.color = color

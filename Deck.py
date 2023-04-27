@@ -61,15 +61,20 @@ class DeckClass:
     
     def generate(self):
         colors = ['Red', 'Green', 'Yellow', 'Blue']
-        values = [str(num) for num in range(0, 10)] + ['Skip', 'Reverse', 'Draw Two', 'Draw Four'] # 플레이어 건너뛰기, 진행 방향 반전, 카드 2개 뽑기, 상대와 카드 변경
+        values = [str(num) for num in range(0, 10)]
+        skills = ['Skip', 'Reverse', 'Draw Two', 'Draw Four'] # 플레이어 건너뛰기, 진행 방향 반전, 카드 2개 뽑기, 카드 4개 뽑기
         wilds = ['Wild', 'Wild Draw Four', 'Wild Draw Two']
         
-        # 모든 색상의 숫자 카드는 0을 제외하고 2개씩 생성
+        # 모든 색상의 숫자 카드는 2개씩 생성
         for color in colors:
             for value in values:
                 card = Card(color, value)
-                self.cards.append(card)
-                if value != '0':
+                for _ in range(2):
+                    self.cards.append(card)
+                    
+            for skill in skills:
+                card = Card(color, skill)
+                for _ in range(2):
                     self.cards.append(card)
         
         # 와일드 카드 4개 생성
@@ -78,22 +83,20 @@ class DeckClass:
                 card = Card(wild, 'Any')
                 self.cards.append(card)
 
-        self.shuffle()
-
     def shuffle(self):
         random.shuffle(self.cards)
 
-    # 덱의 맨 앞 카드 내기
-    def draw_card(self):
-        draw_se = pygame.mixer.Sound("../UNO/data/sound/se/draw.mp3")
+    # 카드 드로우, 인덱스 값 없을 시 덱의 맨 위 카드 드로우
+    def draw_card(self, card_index=0):
+        draw_se = pygame.mixer.Sound("./data/sound/se/draw.mp3")
         draw_se.set_volume(setting.get_music_se())
         draw_se.play() # 효과음 한 번 재생
 
-        return self.cards.pop()
+        return self.cards.pop(card_index)
 
+    # 덱 초기화, 카드 리스트를 비움
     def reset(self):
         self.cards = []
-        self.generate()
 
     # 현재 덱의 카드 개수를 반환
     def count(self):
@@ -106,3 +109,6 @@ class DeckClass:
                 card = self.draw_card()
                 # 플레이어 댁에 카드 추가
                 # player.hand.add_card(card)
+    
+    def addCard(self, card):
+        self.cards.append(card)
