@@ -105,7 +105,7 @@ from Card import Card
             none
 '''
 
-class DeckClass:
+class Deck:
     def __init__(self):
         self.cards = []
         self.generate()

@@ -9,21 +9,20 @@ class Turn:
         self.players = players
         self.current_player = players[0]
         self.direction = 1
-        self.color = ''
 
     def next_direction(self):
         # 다음 플레이어로 턴을 넘김
         index = self.players.index(self.current_player)
         index = (index + self.direction) % len(self.players)
         self.current_player = self.players[index]
-        return self.direction
+        return index
 
     def skip_direction(self):
         # 한 턴 건너뛰기
         index = self.players.index(self.current_player)
         index = ((index + 1) + self.direction) % len(self.players)
         self.current_player = self.players[index]
-        return self.direction
+        return index
 
     def reverse_direction(self):
         # 턴 방향을 반대로 바꿈
@@ -34,17 +33,16 @@ class Game:
         self.dumy_deck = Deck() # 처음 생성되는 카드 리스트들 모인 곳
         self.discard_deck = Deck()
         self.discard_deck.reset() # 버려진 카드들 모이는 곳
-
+        self.color = ''
         self.players = players
         self.turn = Turn(players)
         self.winner = self.players[0]
 
     # 덱 생성 및 카드 분배
     def distrib_card(self, card_num):
-        self.deck.generate()
-        self.deck.shuffle()
+        self.dumy_deck.shuffle()
         for player in self.players:
-            self.deck = player.setCard(self.deck, card_num)
+            self.dumy_deck = player.setCard(self.dumy_deck, card_num)
 
     def show_winner(self):
         print(self.winner, " wins!")

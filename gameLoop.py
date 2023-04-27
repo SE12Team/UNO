@@ -4,7 +4,7 @@ import setting
 from UI import *
 import setting_menu
 import cardUi
-import Deck
+import Game
 import Player
 import computer
 
@@ -36,12 +36,31 @@ def gameUiLoop(computer_num):
     #UI파일의 GameGui클래스 인스턴스 생성
     ui = GameGui(ui_manager)
 
-    #Deck파일의 Deckclass의 인스턴스 생성
-    deck = Deck.DeckClass()
-
     #Player파일의 Player클래스의 인스턴스 생성
-    player = Player.Player("You")
+    players = []
+    players.append(Player.Player("You"))
 
+    #Computer 인스턴스 생성
+    for i in range(computer_num):
+        players.append(computer.Computer(f"computer{i+1}"))
+
+    #Gamek파일의 Game클래스의 인스턴스 생성
+    game = Game.Game(players)
+
+    #버튼 객체(플레이어랑 컴퓨터)를 담은 리스트 만들기 and 그리기
+    player_card_button_list = []
+    computer_card_button_list = [ [] for i in range(computer_num)]
+    for i in game.players[0].hand:
+        color = i.color
+        value = i.value
+        player_card_button_list.append(cardUi.cardUI(width,height,card_manager,color,value,i,False,i+1))
+
+    for i in range(computer_num):
+        for j in range(len(game.players[i+1].hand)):
+            computer_card_button_list[i].append(cardUi.computerCardUi(card_manager,width,height,i,j))
+
+    #discard_deck 한장 추가 및 그리기
+    game.dumy_deck.
 
     #메소드 실행
     user_board = ui.userBoard("You")
@@ -61,9 +80,7 @@ def gameUiLoop(computer_num):
         Player_list.append(f"Computer {i+1}")
     currentTurn = 0
     
-    #플레이어의 카드 버튼 리스트, 컴퓨터들의 버튼 2차원 리스트(행:컴퓨터 열:컴퓨터카드)
-    card_button_list = []
-    computer_card_button_list = [ [] for i in range(computer_num)]
+
 
 
     #카드 나눠주기 및 컴퓨터 인스턴스 생성
@@ -71,14 +88,8 @@ def gameUiLoop(computer_num):
         tmp = player_draw_card_deck(player,currentTurn,deck,card_manager,width,height,Player_list)
         card_button_list.append(tmp[2])
 
-    computer_instance_list = [0]* (computer_num)
 
-    for i in range(computer_num):
-        computer_instance_list[i]=computer.Computer(f"computer{i+1}")
-        for j in range(5):
-            card_button = cardUi.computerCardUi(card_manager,width,height,i,len(computer_instance_list[i].hand))
-            computer_card_button_list[i].append(card_button)
-            computer_instance_list[i].setCard(deck)
+
 
 
     #Game 메인 루프 실행 전 변수 선언
