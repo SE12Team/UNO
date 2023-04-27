@@ -1,9 +1,9 @@
 import random
-from player import Player 
+from Player import Player 
 
 class Computer(Player):
-    def __init__(self, name, hand):
-        super().__init__(name, hand)
+    def __init__(self, name):
+        super().__init__(name)
     '''
     computer가 선택할 카드를 결정
     Parameter: discard_pile -> list, deck -> list

@@ -12,7 +12,7 @@ class Player:
     Return: None
     '''
     def addCard(self, deck):
-        card = deck.drawCard() # deck에서 pop한 것과 연결
+        card = deck.draw_card() # deck에서 pop한 것과 연결
         self.hand.append(card)
 
     '''

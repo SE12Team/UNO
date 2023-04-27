@@ -61,7 +61,7 @@ class DeckClass:
     
     def generate(self):
         colors = ['Red', 'Green', 'Yellow', 'Blue']
-        values = [str(num) for num in range(0, 10)] + ['Skip', 'Reverse', 'Draw Two', 'Change'] # 플레이어 건너뛰기, 진행 방향 반전, 카드 2개 뽑기, 상대와 카드 변경
+        values = [str(num) for num in range(0, 10)] + ['Skip', 'Reverse', 'Draw Two', 'Draw Four'] # 플레이어 건너뛰기, 진행 방향 반전, 카드 2개 뽑기, 상대와 카드 변경
         wilds = ['Wild', 'Wild Draw Four', 'Wild Draw Two']
         
         # 모든 색상의 숫자 카드는 0을 제외하고 2개씩 생성
@@ -85,11 +85,11 @@ class DeckClass:
 
     # 덱의 맨 앞 카드 내기
     def draw_card(self):
-        draw_se = pygame.mixer.Sound("../sound/se/draw.mp3")
+        draw_se = pygame.mixer.Sound("../UNO/data/sound/se/draw.mp3")
         draw_se.set_volume(setting.get_music_se())
         draw_se.play() # 효과음 한 번 재생
 
-        return self.cards.pop(0)
+        return self.cards.pop()
 
     def reset(self):
         self.cards = []

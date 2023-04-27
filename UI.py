@@ -64,15 +64,17 @@ class GameGui:
 
     def currentTurn(self,current_trun_text,main_board):  
         #현재 턴 글자 객체 생성
-        pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0,-10,400,100),
+
+        current_text = pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0,-10,400,100),
                                         text = f"Trun : {current_trun_text}",
                                         manager = self.ui_manager,
                                         container = main_board,
                                         object_id=ObjectID(object_id="#CurrentTurn")    
                                         )
+        return current_text
         
 
-    def timer(self,main_board,remain_time,start_time):
+    def timer(self,main_board,remain_time,start_time,currentTurn):
         width = pygame.Surface.get_width(setting.screen)
         height = pygame.Surface.get_height(setting.screen)
         end_time = time.time()
@@ -85,9 +87,24 @@ class GameGui:
                                         object_id=ObjectID(object_id="#Timertime")   
                                         )
         if remain_time <= 0:
+            currentTurn += 1
             remain_time = 16
-        return (remain_time,start_time,timer_label)
+        return (remain_time,start_time,timer_label,currentTurn)
+    
     
 
-
-                    
+    def unoButton(self,main_board):
+        width = pygame.Surface.get_width(setting.screen)
+        height = pygame.Surface.get_height(setting.screen)
+        button_layout_rect = pygame.Rect(0, 0, int(width*0.125), int(height*0.1))
+        button_layout_rect.bottomright = (-20, -20)
+        uno_button =pygame_gui.elements.UIButton(
+                            relative_rect=button_layout_rect,
+                            text="Uno",
+                            manager=self.ui_manager,
+                            container=main_board,
+                            object_id="#UnoButton",
+                            anchors={'right': 'right',
+                            'bottom': 'bottom'}
+                    )
+        return uno_button

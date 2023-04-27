@@ -87,7 +87,7 @@
     },
     "#ESC_label":
     {
-        "colour":
+        "colours":
         {
             "normal_text":"#030000"
         },
@@ -104,6 +104,27 @@
         "misc":
         {   
             "shape":"rounded_rectangle"
+        }
+    },
+    "#UnoButton":
+    {
+        "colours":
+        {
+            "normal_bg":"#a32626",
+            "normal_text":"#ede6e6",
+            "hovered_bg":"#5c1717"
+        },
+        "font":
+        {
+            "name":"fira_code",
+            "size":"30",
+            "bold": "1",
+            "italic": "0"
+        },
+        "misc":
+        {   
+            "shape":"rounded_rectangle",
+            "shadow_width": "10"
         }
     }
 }

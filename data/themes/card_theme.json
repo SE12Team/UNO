@@ -1,13 +1,733 @@
 {
-    "#Bule_0":
+    "#Blue_0":
     {
         "images":
         {
             "normal_image":
             {
-                "package":"data.images",
+                "package":"data.images.small",
                 "resource":"Blue_0.png",
                 "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_1":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_1.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_2":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_2.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_3":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_3.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_4":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_4.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_5":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_5.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_6":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_6.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_7":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_7.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_8":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_8.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_9":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_9.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_Draw_Four":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_Draw Four.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_Draw_Two":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_Draw Two.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_Reverse":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_Reverse.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Blue_Skip":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Blue_Skip.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Deck":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Deck.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_0":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_0.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_1":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_1.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_2":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_2.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_3":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_3.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_4":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_4.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_5":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_5.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_6":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_6.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_7":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_7.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_8":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_8.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_9":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_9.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_Draw_Four":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_Draw Four.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_Draw_Two":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_Draw Two.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_Reverse":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_Reverse.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Green_Skip":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Green_Skip.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_0":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_0.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_1":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_1.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_2":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_2.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_3":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_3.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_4":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_4.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_5":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_5.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_6":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_6.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_7":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_7.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_8":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_8.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_9":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_9.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_Draw_Four":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_Draw Four.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_Draw_Two":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_Draw Two.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_Reverse":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_Reverse.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Red_Skip":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Red_Skip.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Wild_Draw_Four_Any":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Wild Draw Four_Any.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Wild_Draw_Two_Any":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Wild Draw Two_Any.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Wild_Any":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Wild_Any.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_0":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_0.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_1":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_1.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_2":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_2.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_3":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_3.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_4":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_4.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_5":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_5.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_6":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_6.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_7":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_7.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_8":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_8.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_9":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_9.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_Draw_Four":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_Draw Four.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_Draw_Two":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_Draw Two.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_Reverse":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_Reverse.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#Yellow_Skip":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"Yellow_Skip.png",
+                "sub_surface_rect": "0,0,94,141"
+            }
+        }
+    },
+    "#computer_card":
+    {
+        "images":
+        {
+            "normal_image":
+            {
+                "package":"data.images.small",
+                "resource":"computer_card.png",
+                "sub_surface_rect": "0,0,40,60"
             }
         }
     }
