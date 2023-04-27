@@ -32,13 +32,13 @@ class Player:
     Parameter: color -> string, value -> string
     Return: boolean
     '''
-    def canPlay(self, card_index, deck_card):
+    def canPlay(self, card_index, color, value):
         can_play = False
         card = self.hand[card_index]
 
-        if "Wild" in card:
+        if "Wild" in color:
             can_play = True
-        elif deck_card.color in card or deck_card.value in card:
+        elif color in card or value in card:
             can_play = True
         return can_play
     
@@ -47,13 +47,13 @@ class Player:
     Parameter: card_index, discard_pile, color, value
     Return: boolean
     '''
-    def playCard(self, card_index, deck_card):
-        if self.canPlay(card_index, deck_card):
-            self.hand.pop(card_index) # 손에서 카드 제거
-            return True
+    def playCard(self, card_index, color, value):
+        if self.canPlay(card_index, color, value):
+            return_card = self.hand.pop(card_index) # 손에서 카드 제거
+            return return_card
         else:
             print("선택한 카드를 플레이할 수 없음")
-            return False
+            return -1
 
     '''
     player 손의 카드 리스트 보여주기

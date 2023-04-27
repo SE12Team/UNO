@@ -110,3 +110,5 @@ class DeckClass:
                 # 플레이어 댁에 카드 추가
                 # player.hand.add_card(card)
     
+    def addCard(self, card):
+        self.cards.append(card)
