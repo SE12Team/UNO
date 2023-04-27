@@ -54,6 +54,57 @@ from Card import Card
             none
 '''
 
+'''
+    1. generate(self):
+        usage:
+            임의의 덱을 생성하여 self.cards 리스트에 저장함.
+        parameter:
+            none
+        return:
+            none
+
+    2. shuffle(self):
+        usage:
+            카드 순서를 랜덤으로 섞음.
+        parameter:
+            none
+        return:
+            none
+
+    3. draw_card(self):
+        usage:
+            덱의 맨 앞 카드를 냄.
+        parameter:
+            none
+        return:
+            덱의 맨 앞 카드
+
+    4. reset(self):
+        usage:
+            덱의 카드를 전부 리셋함.
+        parameter:
+            none
+        return:
+            none
+
+    5. count(self):
+        usage:
+            덱의 카드 갯수를 반환함.
+        parameter:
+            none
+        return:
+            덱의 카드 갯수
+
+    6. deal(self, card_value, players):
+        usage:
+            카드를 일정 갯수만큼 플레이어에게 분배.
+        parameter:
+            1. card_value: 나눠줄 카드 갯수
+            2. players: 분배 받을 프레이어 리스트
+        return:
+            none
+'''
+
 class DeckClass:
     def __init__(self):
         self.cards = []
