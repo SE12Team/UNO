@@ -1,4 +1,5 @@
 import pygame
+import random
 from Deck import Deck
 from Player import Player
 from computer import Computer
@@ -36,6 +37,7 @@ class Game:
         self.color = ''
         self.players = players
         self.winner = self.players[0]
+        self.say_uno = False
 
     # 덱 생성 및 카드 분배
     def distrib_card(self, card_num):
@@ -60,7 +62,39 @@ class Game:
         self.discard_deck.addCard(card)
     
     # dumy_deck에서 카드 가져오기
-    def pop_from_dumy(self,current_turn,iter_num=1):
-        for _ in range(iter_num):
-            self.players[current_turn].hand.append(self.dumy_deck.draw_card())
+    def pop_from_dumy(self, current_turn, num=1):
+        self.dumy_deck = self.players[current_turn].setCard(self.dumy_deck, num)
+
+    # 우노 판별
+    # 플레이어 중 누군가 카드 2장 남았을 시 우노 외치기 가능
+    def can_press_uno(self):
+        can_press = False
+        for player in self.players:
+            if len(player.hand) == 2:
+                can_press = True
+        return can_press
+
+    # 유저 플레이어가 우노 외치기
+    def press_uno_by_user(self, player):
+        if self.can_press_uno():
+            required_player = player
+            for selected_player in self.players:
+                if len(selected_player.hand) == 2:
+                    required_player = selected_player
+            if (required_player != player) and not self.say_uno:
+                # 다른 플레이어 덱에 카드 2장이 남은 경우
+                self.pop_from_dumy(required_player, 2)
+                self.say_uno = True
+            print(f"{player.name} said UNO!")
+        else:
+            print("UNO cannot be said at this time.")
     
+    # 컴퓨터 플레이어가 우노 외치기
+    def press_uno_by_computer(self):
+        random_computer = random.randint(1, len(self.players))
+        self.press_uno_by_user(self.players[random_computer])
+
+    
+    # self.say_uno 값에 따라 턴 당 누군가 먼저 우노를 외쳤으면 그 다음에는 우노를 외치지 못하도록 막기 때문에, 매 턴마다 이 함수를 불러 self.say_uno = False 로 만들어줘야 합니다.
+    def reset_say_uno(self):
+        self.say_uno = False

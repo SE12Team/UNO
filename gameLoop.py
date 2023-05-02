@@ -7,7 +7,7 @@ import cardUi
 import Game
 import Player
 import computer
-
+import random
 
 pygame.init()
 
@@ -131,6 +131,7 @@ def gameUiLoop(computer_num):
                         game.add_to_discard(card)
                         del game.players[game_turn.current_player].hand[index]
                         game_turn.next_direction()
+                        game.reset_say_uno()
                         break
                     elif card.value == 'Skip':
                         game.add_to_discard(card)
@@ -142,17 +143,20 @@ def gameUiLoop(computer_num):
                         del game.players[game_turn.current_player].hand[index]
                         game_turn.reverse_direction()
                         game_turn.next_direction()
+                        game.reset_say_uno()
                         break
                     elif card.value == 'Draw Four':
                         game.add_to_discard(card)
                         del game.players[game_turn.current_player].hand[index]
                         game_turn.next_direction()
+                        game.reset_say_uno()
                         game.players[game_turn.current_player].setCard(game.dumy_deck,4)
                         break
                     elif card.value == 'Draw Two':
                         game.add_to_discard(card)
                         del game.players[game_turn.current_player].hand[index]
                         game_turn.next_direction()
+                        game.reset_say_uno()
                         game.players[game_turn.current_player].setCard(game.dumy_deck,2)
                         break
                 elif flag == 2:
@@ -172,6 +176,7 @@ def gameUiLoop(computer_num):
 
                     game.add_to_discard(card)
                     game_turn.next_direction()
+                    game.reset_say_uno()
                     if card.color == 'Wild': 
                         del game.players[game_turn.current_player].hand[index]
                     elif card.color == 'Wild Draw Four':
@@ -188,6 +193,7 @@ def gameUiLoop(computer_num):
             else:
                 game.players[game_turn.current_player].setCard(game.dumy_deck)
                 game_turn.next_direction()
+                game.reset_say_uno()
             time.sleep(3)
             tmp =  rendering_every_cards_again(game,computer_card_button_list,player_card_button_list,card_manager)
             player_card_button_list = tmp[0]
@@ -226,6 +232,7 @@ def gameUiLoop(computer_num):
                         #시간초 리셋하고 턴 넘기기
                         remain_time = 16
                         game_turn.next_direction()
+                        game.reset_say_uno()
                     else:
                         print("can not draw") 
                     
@@ -238,29 +245,35 @@ def gameUiLoop(computer_num):
                                 game.add_to_discard(card)
                                 del game.players[game_turn.current_player].hand[i]
                                 game_turn.next_direction()
+                                game.reset_say_uno()
                             elif card.value == 'Skip':
                                 game.add_to_discard(card)
                                 del game.players[game_turn.current_player].hand[i]
                                 game_turn.skip_direction()
+                                game.reset_say_uno()
                             elif card.value == 'Reverse':
                                 game.add_to_discard(card)
                                 del game.players[game_turn.current_player].hand[i]
                                 game_turn.reverse_direction()
                                 game_turn.next_direction()
+                                game.reset_say_uno()
                             elif card.value == 'Draw Four':
                                 game.add_to_discard(card)
                                 del game.players[game_turn.current_player].hand[i]
                                 game_turn.next_direction()
+                                game.reset_say_uno()
                                 game.players[game_turn.current_player].setCard(game.dumy_deck,4)
                             elif card.value == 'Draw Two':
                                 game.add_to_discard(card)
                                 del game.players[game_turn.current_player].hand[i]
                                 game_turn.next_direction()
+                                game.reset_say_uno()
                                 game.players[game_turn.current_player].setCard(game.dumy_deck,2)
                         elif flag == 2:
                             game.add_to_discard(card)
                             del game.players[game_turn.current_player].hand[i]
                             game_turn.next_direction()
+                            game.reset_say_uno()
                         elif flag == 3:
                             #와일드 카드의 value를 자신이 가장 많이 들고 있는 색의 색으로 바꿈
                             dic = {'Blue':0, 'Green':0, 'Red':0, 'Yellow':0}
@@ -272,6 +285,7 @@ def gameUiLoop(computer_num):
                             print(card)
                             game.add_to_discard(card)
                             game_turn.next_direction()
+                            game.reset_say_uno()
                             if card.color == 'Wild Draw Four':
                                 game.players[game_turn.current_player].setCard(game.dumy_deck,4)
                             elif card.color == 'Wild Draw Two':
@@ -301,6 +315,7 @@ def gameUiLoop(computer_num):
             #시간초 리셋하고 턴 넘기기
             remain_time = 16
             game_turn.next_direction()
+            game.reset_say_uno()
 
         
         #시간 타이머 작동
@@ -321,6 +336,15 @@ def gameUiLoop(computer_num):
         #타이머,턴 랜더링 삭제
         time_label.kill()
         current_text.kill()
+        
+        # 턴마다 모든 플레이어의 덱 당 카드 수를 계산하여 컴퓨터가 우노를 외치는 함수입니다.
+        # 매 턴 시작 시 이 함수를 부릅니다.
+        # 이 함수 호출 뒤에는 game.reset_say_uno()가 호출되어야 합니다. (이 함수 설명은 Game.py 참조)
+        # 유저가 우노 버튼을 누를 시에는 이 함수 말고 game.press_uno_by_user(player) < 이거 사용하시면 됩니다.
+        def wait_and_say_uno():
+            wait_time = random.randrange(3000, 5000)
+            pygame.time.delay(wait_time)
+            game.press_uno_by_computer()
 
 
 def stopGameLoop(screen,time_delta):
@@ -425,6 +449,5 @@ def rendering_every_cards_again(game,computer_card_button_list,player_card_butto
     cardUi.cardUI(card_manager,color,value,0,True,1)
     
     return (player_card_button_list,computer_card_button_list)
-    
 
 gameUiLoop(3)
