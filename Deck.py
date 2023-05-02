@@ -138,7 +138,7 @@ class Deck:
         random.shuffle(self.cards)
 
     # 카드 드로우, 인덱스 값 없을 시 덱의 맨 위 카드 드로우
-    def draw_card(self, card_index=0):
+    def draw_card(self, card_index=-1):
         draw_se = pygame.mixer.Sound("./data/sound/se/draw.mp3")
         draw_se.set_volume(setting.get_music_se())
         draw_se.play() # 효과음 한 번 재생

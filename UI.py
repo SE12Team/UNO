@@ -62,7 +62,7 @@ class GameGui:
                                                 )
         return main_board
 
-    def currentTurn(self,current_trun_text,main_board):  
+    def rendering_currentTurn(self,current_trun_text,main_board):  
         #현재 턴 글자 객체 생성
 
         current_text = pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0,-10,400,100),
@@ -74,9 +74,8 @@ class GameGui:
         return current_text
         
 
-    def timer(self,main_board,remain_time,start_time,currentTurn):
+    def timer(self,main_board,remain_time,start_time,game_turn):
         width = pygame.Surface.get_width(setting.screen)
-        height = pygame.Surface.get_height(setting.screen)
         end_time = time.time()
         remain_time = remain_time - (end_time-start_time)
         start_time = time.time()
@@ -87,9 +86,9 @@ class GameGui:
                                         object_id=ObjectID(object_id="#Timertime")   
                                         )
         if remain_time <= 0:
-            currentTurn += 1
+            game_turn.next_direction()
             remain_time = 16
-        return (remain_time,start_time,timer_label,currentTurn)
+        return (remain_time,start_time,timer_label)
     
     
 

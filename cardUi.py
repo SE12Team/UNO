@@ -1,12 +1,15 @@
 import pygame
 import pygame_gui
 import setting
+import time
 
-def cardUI(width,height,card_manager,color,value,now_card_num,now_card_flag,str_height):
+def cardUI(card_manager,color,value,now_card_num,discard_card_flag,str_height):
+        width = pygame.Surface.get_width(setting.screen)
+        height = pygame.Surface.get_height(setting.screen)
         width_val = 0.04
         width_interval = 0.05
         height_val = 0.716
-        if now_card_flag == True:
+        if discard_card_flag == True:
             width_val = 0.45
             height_val = 0.2166
         if color == 'Blue':
@@ -123,7 +126,7 @@ def cardUI(width,height,card_manager,color,value,now_card_num,now_card_flag,str_
                         object_id="#Blue_Draw_Four"
                     )
         elif color == "Green":
-            if value == 0:
+            if value == '0':
                 tmp = pygame_gui.elements.UIButton(
                         relative_rect=pygame.Rect((int(width*width_val)+int(width*width_interval*now_card_num), int(height*height_val)), (int(width*0.1175), int(height*0.235))),
                         text="",
@@ -349,7 +352,7 @@ def cardUI(width,height,card_manager,color,value,now_card_num,now_card_flag,str_
                         object_id="#Red_Draw_Four"
                     )
         elif color == "Yellow":
-            if value == 0:
+            if value == '0':
                 tmp = pygame_gui.elements.UIButton(
                         relative_rect=pygame.Rect((int(width*width_val)+int(width*width_interval*now_card_num), int(height*height_val)), (int(width*0.1175), int(height*0.235))),
                         text="",
@@ -487,37 +490,29 @@ def cardUI(width,height,card_manager,color,value,now_card_num,now_card_flag,str_
                 )
         return tmp
 
-def DeckUi(card_manager,width,height):
-    Deck_button = pygame_gui.elements.UIButton(
-                        relative_rect=pygame.Rect((180,130),(int(width*0.1175), int(height*0.235))),
-                        text="",
-                        manager=card_manager,
-                        object_id="#Deck"
-                    )
-    return Deck_button
+def DeckUi(card_manager):
+        width = pygame.Surface.get_width(setting.screen)
+        height = pygame.Surface.get_height(setting.screen)
+        Deck_button = pygame_gui.elements.UIButton(
+                                relative_rect=pygame.Rect((180,130),(int(width*0.1175), int(height*0.235))),
+                                text="",
+                                manager=card_manager,
+                                object_id="#Deck"
+                        )
+        return Deck_button
 
-def computerCardUi(card_manager,width,height,number_of_computer,card_num):
+def computerCardUi(card_manager,number_of_computer,card_num):
+        width = pygame.Surface.get_width(setting.screen)
+        height = pygame.Surface.get_height(setting.screen)
         tmp = pygame_gui.elements.UIButton(
                         relative_rect=pygame.Rect(int(width*0.775)+int(width*0.0125*card_num),int(height*0.0833)+int(height*0.2*number_of_computer),int(width*0.05),int(height*0.1)),
                         text="",
+                        starting_height=card_num,
                         manager=card_manager,
                         object_id="#computer_card"
                 )
+
         return tmp
-
-def now_card_draw(deck,card_manager):
-        width = pygame.Surface.get_width(setting.screen)
-        height = pygame.Surface.get_height(setting.screen)
-        now_card_instance = deck.cards.pop()
-        while (now_card_instance.color == "Wild") or (now_card_instance.color == "Wild Draw Four") or (now_card_instance.color == "Wild Draw Two"):
-            deck.cards.append(now_card_instance)
-            deck.shuffle()
-            now_card_instance = deck.cards.pop()
-
-        color = now_card_instance.color
-        value = now_card_instance.value
-        now_card_button = cardUI(width,height,card_manager,color,value,0,True,1)
-        return (now_card_button,now_card_instance)
 
 
 

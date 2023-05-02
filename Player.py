@@ -32,28 +32,37 @@ class Player:
     Parameter: color -> string, value -> string
     Return: boolean
     '''
-    def canPlay(self, card_index, color, value):
-        can_play = False
-        card = self.hand[card_index]
-
-        if "Wild" in color:
-            can_play = True
-        elif color in card or value in card:
-            can_play = True
-        return can_play
+    def canPlay(self, card, discard_deck):
+        discard = discard_deck.cards[-1]
+        discard_color = discard.color
+        discard_value = discard.value
+        if discard_color in ['Wild', 'Wild Draw Four', 'Wild Draw Two']:
+            discard_color , discard_value = discard_value, discard_color
+        if (card.color == discard_color):
+            return 1
+            # discard_deck.cards.append(self.hand[i])
+            # del self.hand[i]
+            
+        elif (card.value == discard_value) and (card.value in ['1','2','3','4','5','6','7','8','9','0']):
+            return 2
+        elif card.color in ['Wild', 'Wild Draw Four', 'Wild Draw Two']:
+            #자기가 가장 많이 들고 있는 색깔로 와일드 카드 색 바꾸고 냄
+            return 3
+        else:
+            return 4
     
     '''
     player가 카드를 플레이
     Parameter: card_index, discard_pile, color, value
     Return: boolean
     '''
-    def playCard(self, card_index, color, value):
-        if self.canPlay(card_index, color, value):
-            return_card = self.hand.pop(card_index) # 손에서 카드 제거
-            return return_card
-        else:
-            print("선택한 카드를 플레이할 수 없음")
-            return -1
+    # def playCard(self,discard_deck):
+    #    if self.canPlay(discard_deck):
+    #        return_card = self.hand.pop(card_index) # 손에서 카드 제거
+    #        return return_card
+    #    else:
+    #        print("선택한 카드를 플레이할 수 없음")
+    #        return -1
 
     '''
     player 손의 카드 리스트 보여주기
