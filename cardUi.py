@@ -4,8 +4,9 @@ import setting
 import time
 
 def cardUI(card_manager,color,value,now_card_num,discard_card_flag,str_height):
-        width = pygame.Surface.get_width(setting.screen)
-        height = pygame.Surface.get_height(setting.screen)
+        tmp = 0
+        width = pygame.display.get_surface().get_width()
+        height = pygame.display.get_surface().get_height()
         width_val = 0.04
         width_interval = 0.05
         height_val = 0.716
@@ -491,24 +492,24 @@ def cardUI(card_manager,color,value,now_card_num,discard_card_flag,str_height):
         return tmp
 
 def DeckUi(card_manager):
-        width = pygame.Surface.get_width(setting.screen)
-        height = pygame.Surface.get_height(setting.screen)
+        width = pygame.display.get_surface().get_width()
+        height = pygame.display.get_surface().get_height()
         Deck_button = pygame_gui.elements.UIButton(
-                                relative_rect=pygame.Rect((180,130),(int(width*0.1175), int(height*0.235))),
+                                relative_rect=pygame.Rect((int(width*0.225),int(height*0.2166)),(int(width*0.1175), int(height*0.235))),
                                 text="",
                                 manager=card_manager,
                                 object_id="#Deck"
                         )
         return Deck_button
 
-def computerCardUi(card_manager,number_of_computer,card_num):
-        width = pygame.Surface.get_width(setting.screen)
-        height = pygame.Surface.get_height(setting.screen)
+def computerCardUi(computer_card_manager,number_of_computer,card_num):
+        width = pygame.display.get_surface().get_width()
+        height = pygame.display.get_surface().get_height()
         tmp = pygame_gui.elements.UIButton(
                         relative_rect=pygame.Rect(int(width*0.775)+int(width*0.0125*card_num),int(height*0.0833)+int(height*0.2*number_of_computer),int(width*0.05),int(height*0.1)),
                         text="",
                         starting_height=card_num,
-                        manager=card_manager,
+                        manager=computer_card_manager,
                         object_id="#computer_card"
                 )
 

@@ -107,6 +107,7 @@ def lobby_screen():
                 elif gamestart_rect.is_clicked(pos):
                     pass
                     gameLoop.gameUiLoop(Computer.computer_num)
+                    return
 
                 elif back_rect.is_clicked(pos):
                     time.sleep(0.1)

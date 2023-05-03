@@ -115,6 +115,7 @@ def change_process(option, is_next):
             else:
                 SCREEN = 2
         setting.set_screen(SCREEN)
+
     elif option == 3:
         global COLORBLIND
         if COLORBLIND:

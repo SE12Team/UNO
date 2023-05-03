@@ -52,8 +52,7 @@
     {
         "colours":
         {
-            "normal_text":"#fffcfc",
-            "text_shadow":"1"
+            "normal_text":"#fffcfc"
         },
         "font":
         {
@@ -67,8 +66,7 @@
     {
         "colours":
         {
-            "normal_text":"#e6052e",
-            "text_shadow":"1"
+            "normal_text":"#e6052e"
         },
         "font":
         {
@@ -125,6 +123,59 @@
         {   
             "shape":"rounded_rectangle",
             "shadow_width": "10"
+        }
+    },
+    "#Blue":
+    {
+        "colours":
+        {
+            "normal_bg":"#00a2e8"
+            
+        }
+    },
+    "#Red":
+    {
+        "colours":
+        {
+            "normal_bg":"#eb3324"
+            
+        }
+    },
+    "#Green":
+    {
+        "colours":
+        {
+            "normal_bg":"#A1FA4F"
+            
+        }
+    },
+    "#Yellow":
+    {
+        "colours":
+        {
+            "normal_bg":"#faf853"
+            
+        }
+    },
+    "#win_panel":
+    {
+        "colours":
+        {
+            "dark_bg":"#7d8a85"
+        }
+    },
+    "#win_label":
+    {
+        "colours":
+        {
+            "normal_text":"#f2eded"
+        },
+        "font":
+        {
+            "name":"fira_code",
+            "size":"30",
+            "bold": "1",
+            "italic": "0"
         }
     }
 }

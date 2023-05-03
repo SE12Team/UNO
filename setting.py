@@ -1,5 +1,6 @@
 import pygame
 import configparser, os
+import UI
 
 
 thisfolder = os.path.dirname(os.path.abspath(__file__))
@@ -20,6 +21,7 @@ def set_screen(size):
     config.set('Mod', 'Screen', str(size))
     screen_size = get_screen(size)
     pygame.display.set_mode(screen_size, pygame.RESIZABLE)
+    UI.updateJson()
 def set_colorblind(state):
     config.set('Mod', 'colorblind', str(state))
 

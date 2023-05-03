@@ -142,8 +142,10 @@ class Deck:
         draw_se = pygame.mixer.Sound("./data/sound/se/draw.mp3")
         draw_se.set_volume(setting.get_music_se())
         draw_se.play() # 효과음 한 번 재생
-
+        if self.cards == []:
+            self.generate()
         return self.cards.pop(card_index)
+         
 
     # 덱 초기화, 카드 리스트를 비움
     def reset(self):

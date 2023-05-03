@@ -34,10 +34,14 @@ class Player:
     '''
     def canPlay(self, card, discard_deck):
         discard = discard_deck.cards[-1]
-        discard_color = discard.color
-        discard_value = discard.value
-        if discard_color in ['Wild', 'Wild Draw Four', 'Wild Draw Two']:
-            discard_color , discard_value = discard_value, discard_color
+        if discard.color in ['Wild', 'Wild Draw Four', 'Wild Draw Two']:
+            discard_color = discard.value
+            discard_value = ""
+        else:
+            discard_color = discard.color
+            discard_value = discard.value
+        #if discard_color in ['Wild', 'Wild Draw Four', 'Wild Draw Two']:
+        #    discard_color , discard_value = discard_value, discard_color
         if (card.color == discard_color):
             return 1
             # discard_deck.cards.append(self.hand[i])
@@ -46,7 +50,6 @@ class Player:
         elif (card.value == discard_value) and (card.value in ['1','2','3','4','5','6','7','8','9','0']):
             return 2
         elif card.color in ['Wild', 'Wild Draw Four', 'Wild Draw Two']:
-            #자기가 가장 많이 들고 있는 색깔로 와일드 카드 색 바꾸고 냄
             return 3
         else:
             return 4
