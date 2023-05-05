@@ -1,1 +1,1 @@
-{"#computer_card": {"images": {"normal_image": {"package": "data.images.large", "resource": "computer_card.png", "sub_surface_rect": "0,0,80,120"}}}}
+{"#computer_card": {"images": {"normal_image": {"package": "data.images.small", "resource": "computer_card.png", "sub_surface_rect": "0,0,40,60"}}}}

@@ -62,37 +62,37 @@ class Game:
         self.discard_deck.addCard(card)
     
     # dumy_deck에서 카드 가져오기
-    def pop_from_dumy(self, current_turn, num=1):
-        self.dumy_deck = self.players[current_turn].setCard(self.dumy_deck, num)
+    def pop_from_dumy(self, current_player, num=1):
+        self.dumy_deck = current_player.setCard(self.dumy_deck, num)
 
     # 우노 판별
     # 플레이어 중 누군가 카드 2장 남았을 시 우노 외치기 가능
-    def can_press_uno(self):
+    def can_press_uno(self, player):
         can_press = False
-        for player in self.players:
-            if len(player.hand) == 2:
-                can_press = True
+        if len(player.hand) == 2:
+            can_press = True
         return can_press
 
     # 유저 플레이어가 우노 외치기
-    def press_uno_by_user(self, player):
-        if self.can_press_uno():
-            required_player = player
+    def press_uno_by_user(self, player, current_player):
+        if self.can_press_uno(current_player):
+            required_player = current_player
             for selected_player in self.players:
                 if len(selected_player.hand) == 2:
                     required_player = selected_player
             if (required_player != player) and not self.say_uno:
                 # 다른 플레이어 덱에 카드 2장이 남은 경우
-                self.pop_from_dumy(required_player, 2)
+                self.pop_from_dumy(required_player, 1)
                 self.say_uno = True
             print(f"{player.name} said UNO!")
+            print(required_player.hand)
         else:
             print("UNO cannot be said at this time.")
     
     # 컴퓨터 플레이어가 우노 외치기
-    def press_uno_by_computer(self):
-        random_computer = random.randint(1, len(self.players))
-        self.press_uno_by_user(self.players[random_computer])
+    def press_uno_by_computer(self, current_player):
+        random_computer = random.randint(1, len(self.players)-1)
+        self.press_uno_by_user(self.players[random_computer], current_player)
 
     
     # self.say_uno 값에 따라 턴 당 누군가 먼저 우노를 외쳤으면 그 다음에는 우노를 외치지 못하도록 막기 때문에, 매 턴마다 이 함수를 불러 self.say_uno = False 로 만들어줘야 합니다.
