@@ -1,5 +1,5 @@
 import pygame
-import os
+import configparser, os
 import setting
 
 # Pygame 초기화
@@ -14,6 +14,25 @@ pygame.display.set_caption("도전과제 리스트 테스트")
 # 한글 폰트 로드
 font_path = "./data/fonts/NanumBarunGothic.ttf"
 font = pygame.font.Font(font_path, int(SCREEN_WIDTH/60))
+
+thisfolder = os.path.dirname(os.path.abspath(__file__))
+inifile = os.path.join(thisfolder, 'achievement.ini')
+config = configparser.RawConfigParser()
+config.read(inifile)
+
+# Save Settings
+def save():
+    with open(inifile, 'w') as configfile:
+        config.write(configfile)
+
+# 업적 달성 여부
+def get_state(index):
+    return config.getboolean('acheivement', index)
+
+# 업적 달성 만들기
+def set_state_true(index):
+    save()
+    return config.set('acheivement', index, bool(True))
 
 # 도전과제 아이콘 로드
 icon_images = []
