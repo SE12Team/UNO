@@ -3,6 +3,7 @@ import setting_menu
 import setting
 import lobby
 import storymode
+import new_lobby
 
 pygame.init()
 
@@ -23,7 +24,7 @@ def start_UNO():
                 #setting.main_menu = False
                 if menu_command == 1:
                     if setting.get_mod_num() == 0:
-                        lobby.lobby_screen()
+                        new_lobby.lobby_screen()
                     elif setting.get_mod_num() == 1:
                         print("멀티 플레이 화면")
                     else:

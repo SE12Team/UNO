@@ -110,22 +110,22 @@ def drawStoryMode():
     width = pygame.Surface.get_width(setting.screen)
     height = pygame.Surface.get_height(setting.screen)
     screen = pygame.display.set_mode((width, height))
-    background = pygame.image.load("./images/storyModeMap.jpeg")
+    background = pygame.image.load("./data/images/storyModeMap.jpeg")
 
 
     running = True
     
     btn_instance_list = [0]*6
-    A_button = circle_button(screen,(width*0.1625,height*0.4),'STAGE 1')
+    A_button = circle_button(screen,(width*0.1625,height*0.4),'STAGE A')
     btn_instance_list[1] = A_button
     
-    B_button = circle_button(screen,(width*0.125,height*0.833),'STAGE 2')
+    B_button = circle_button(screen,(width*0.125,height*0.833),'STAGE B')
     btn_instance_list[2] = B_button
     
-    C_button = circle_button(screen,(width*0.525,height*0.55),'STAGE 3')
+    C_button = circle_button(screen,(width*0.525,height*0.55),'STAGE C')
     btn_instance_list[3] = C_button
     
-    D_button = circle_button(screen,(width*0.7125,height*0.1),'STAGE 4')
+    D_button = circle_button(screen,(width*0.7125,height*0.1),'STAGE D')
     btn_instance_list[4] = D_button
    
     

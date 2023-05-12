@@ -27,9 +27,9 @@ def gameUisetting():
 
 
 
-def gameUiLoop(computer_num): 
+def gameUiLoop(computer_num,player_name,computer_game_mode): 
     width,height,screen,gameBackground = gameUisetting()
-
+    print(computer_game_mode)
 
     #pygame_gui UIManager 지정
     ui_manager = pygame_gui.UIManager((width, height),"data/themes/UI_theme.json")
@@ -41,7 +41,7 @@ def gameUiLoop(computer_num):
 
     #Player파일의 Player클래스의 인스턴스 생성
     players = []
-    players.append(Player.Player("You"))
+    players.append(Player.Player(player_name))
 
     #Computer 인스턴스 생성
     for i in range(computer_num):
@@ -83,7 +83,7 @@ def gameUiLoop(computer_num):
 
 
     #게임판 Ui 그려주는 메소드 실행
-    user_board = ui.userBoard("You")
+    user_board = ui.userBoard(player_name)
     main_board = ui.mainBoard()
     computer_uiList = ui.computerBoard(computer_num)
     deck_button = cardUi.DeckUi(card_manager)
@@ -91,7 +91,7 @@ def gameUiLoop(computer_num):
     
 
     #플레이어 리스트 생성(current Turn 표시하기 위해), 인덱스 변수 생성
-    Player_list = ["You"]
+    Player_list = [player_name]
     for i in range(computer_num):
         Player_list.append(f"Computer {i+1}")
 
@@ -99,7 +99,10 @@ def gameUiLoop(computer_num):
     game_turn = Game.Turn(computer_num+1)   
 
     #Game 메인 루프 실행 전 변수 선언
-    remain_time = 16
+    if "mode D" in computer_game_mode:
+        remain_time = 11
+    else:
+        remain_time = 16
     clock = pygame.time.Clock()
     running = True
     time_delta = clock.tick(60)/1000.0
@@ -108,17 +111,23 @@ def gameUiLoop(computer_num):
     start_time = time.time()
     #################################
     while running:
+        '''
         if game.can_press_uno(game.players[game_turn.current_player]):
+            current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
+            ui_manager.update(time_delta)
+            ui_manager.draw_ui(screen)
+            pygame.display.flip()
             wait_and_say_uno(game,uno_button,game_turn,ui_manager,time_delta,screen)
             nowColorButton.kill()
             uno_button.kill()
+            current_text.kill()
             tmp =  rendering_every_cards_again(game,computer_card_button_list,player_card_button_list,card_manager,ui,main_board,computer_card_manager)
             player_card_button_list = tmp[0]
             computer_card_button_list = tmp[1]
             nowColorButton = tmp[2]
             uno_button = tmp[3]
+        '''
         #현재 턴 label 글자 랜더링
-        
         current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
 
         pygame.display.flip() # 화면을 업데이트
@@ -167,8 +176,50 @@ def gameUiLoop(computer_num):
 
             print(f"{game_turn.current_player} : {game.players[game_turn.current_player].hand}")             
             ifWin_player = game_turn.current_player
+            ####잠시 3초 동안 정지#########################    
+            
+            limit_time = time.time() + 3
+            while time.time() < limit_time:
+                 for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit() 
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            stopGameLoop(screen,time_delta)
+
+                            width,height,screen,gameBackground = gameUisetting()
+                            card_manager = pygame_gui.UIManager((width, height), "data/themes/card_theme.json")    
+                            computer_card_manager = pygame_gui.UIManager((width, height), "data/themes/computerCard_theme.json")
+                            ui_manager = pygame_gui.UIManager((width, height),"data/themes/UI_theme.json")
+                            #게임판 다시 그리기
+                            ui = GameGui(ui_manager)
+                            user_board = ui.userBoard("You")
+                            main_board = ui.mainBoard()
+                            computer_uiList = ui.computerBoard(computer_num)
+                            current_text.kill()
+                            current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
+                            #카드들 다시 그리기
+                            deck_button = cardUi.DeckUi(card_manager)
+                            tmp =  rendering_every_cards_again(game,computer_card_button_list,player_card_button_list,card_manager,ui,main_board,computer_card_manager)
+                            player_card_button_list = tmp[0]
+                            computer_card_button_list = tmp[1]
+                            nowColorButton = tmp[2]
+                            uno_button = tmp[3]
+
+                            start_time = time.time()
+                            ui_manager.update(time_delta)
+                            card_manager.update(time_delta)
+                            computer_card_manager.update(time_delta)
+                            screen.blit(pygame.transform.scale(gameBackground,(pygame.Surface.get_width(screen),pygame.Surface.get_height(screen))),(0,0))
+                            ui_manager.draw_ui(screen)
+                            card_manager.draw_ui(screen)
+                            computer_card_manager.draw_ui(screen)
+                            pygame.display.flip() # 화면을 업데이트
+                            
+        #########################################################
+
             for index in range(len(game.players[game_turn.current_player].hand[:])):
-                pygame.time.delay(300)
+                ####pygame.time.delay(300)
                 card = game.players[game_turn.current_player].hand[index]
                 
                 flag = game.players[game_turn.current_player].canPlay(card,game.discard_deck)
@@ -238,7 +289,7 @@ def gameUiLoop(computer_num):
                 ui.winner(game_turn,game,ifWin_player,screen,time_delta)
                 running = False
                 break
-            pygame.time.delay(500)
+
             nowColorButton.kill()
             uno_button.kill()
             tmp =  rendering_every_cards_again(game,computer_card_button_list,player_card_button_list,card_manager,ui,main_board,computer_card_manager)
@@ -246,13 +297,16 @@ def gameUiLoop(computer_num):
             computer_card_button_list = tmp[1]
             nowColorButton = tmp[2]
             uno_button = tmp[3]
-            remain_time = 16
+            if "mode D" in computer_game_mode:
+                remain_time = 11
+            else:
+                remain_time = 16
             start_time = time.time()
             current_text.kill()
             current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
             game.reset_say_uno()
 
-
+        
 #################################################################
             #이벤트 큐(이벤트 감지)
         for event in pygame.event.get():
@@ -292,7 +346,10 @@ def gameUiLoop(computer_num):
                         card_button = cardUi.cardUI(card_manager,color,value,len(game.players[0].hand)-1,False,len(game.players[0].hand)+1)
                         player_card_button_list.append(card_button)
                         #시간초 리셋하고 턴 넘기기
-                        remain_time = 16
+                        if "mode D" in computer_game_mode:
+                            remain_time = 11
+                        else:
+                            remain_time = 16
                         game_turn.next_direction()
                         game.reset_say_uno()
                         colorSelectButton = False
@@ -322,6 +379,7 @@ def gameUiLoop(computer_num):
                     
                 for i, player_card_button in enumerate(player_card_button_list[:]):
                     if (event.ui_element == player_card_button) and (game_turn.current_player == 0):
+                        ###여기가 카드 눌렀을 때 생기는 곳
                         card = game.players[0].hand[i]
 
                         if colorSelectButton:
@@ -402,13 +460,24 @@ def gameUiLoop(computer_num):
                         computer_card_button_list = tmp[1]
                         nowColorButton = tmp[2]
                         uno_button = tmp[3]
-                        remain_time = 16
+                        if "mode D" in computer_game_mode:
+                            remain_time = 11
+                        else:
+                            remain_time = 16
 
             card_manager.process_events(event)
             ui_manager.process_events(event)
         #이겼을 때
         if len(game.players[0].hand) == 0:
             ui.winner(game_turn,game,0,screen,time_delta)
+            tmp = True
+            while tmp:
+                 for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()           
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            tmp = False
             running = False
             return
 
@@ -420,7 +489,10 @@ def gameUiLoop(computer_num):
             card_button = cardUi.cardUI(card_manager,color,value,len(game.players[0].hand)-1,False,len(game.players[0].hand)+1)
             player_card_button_list.append(card_button)
             #시간초 리셋하고 턴 넘기기
-            remain_time = 16
+            if "mode D" in computer_game_mode:
+                remain_time = 11
+            else:
+                remain_time = 16
             game_turn.next_direction()
             game.reset_say_uno()
             colorSelectButton = False
@@ -455,6 +527,7 @@ def gameUiLoop(computer_num):
         time_label.kill()
         current_text.kill()
         
+
         # 턴마다 모든 플레이어의 덱 당 카드 수를 계산하여 컴퓨터가 우노를 외치는 함수입니다.
         # 매 턴 시작 시 이 함수를 부릅니다.
         # 이 함수 호출 뒤에는 game.reset_say_uno()가 호출되어야 합니다. (이 함수 설명은 Game.py 참조)
@@ -462,9 +535,6 @@ def gameUiLoop(computer_num):
 def wait_and_say_uno(game,uno_button,game_turn,ui_manager,time_delta,screen):
     wait_time = random.randrange(3000, 5000)
     limit_time = time.time() + (wait_time/1000)
-    print(uno_button)
-    print("outer_current: ", time.time())
-    print("outer_limit: ", limit_time)
     while time.time() < limit_time:
 
         for event in pygame.event.get():
@@ -629,4 +699,3 @@ def selectColor(ui_manager,game,deck_button,game_turn,card_manager,player_card_b
     return (RedColor,BlueColor,YellowColor,GreenColor)
 
             
-gameUiLoop(3)

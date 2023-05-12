@@ -177,5 +177,18 @@
             "bold": "1",
             "italic": "0"
         }
+    },
+    "drop_down_menu":
+    {
+        "misc":
+        {
+            "expand_direction": "down"
+        },
+
+        "colours":
+        {
+            "dark_bg": "#ED1C24",
+            "normal_border": "#35393e"
+        }
     }
 }

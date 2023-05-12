@@ -35,6 +35,7 @@ def input_text_on_surface(screen, font, surface_rect):
         screen.blit(surface, surface_rect)
         pygame.display.update(surface_rect)
 
+        
 
 class Computer:
     computer_num = 0
@@ -71,10 +72,10 @@ def lobby_screen():
     height = pygame.Surface.get_height(setting.screen)
     font = pygame.font.SysFont('freesansbold.ttf', int(width*0.05))
     empty_rects = [Computer(width*0.212, height*0.15 + i* (height*0.14), width*0.25, height*0.14, EMPTY_COLOR, "empty", i+1) for i in range(5)]
-    player_rect = Computer(width*0.562, height*0.283, width*0.212, height*0.2, PLAYER_COLOR, "Player")
+    #player_rect = Computer(width*0.562, height*0.283, width*0.212, height*0.2, PLAYER_COLOR, "Player")
     gamestart_rect = Computer(width*0.562, height*0.5, width*0.212, height*0.13, GAMESTART_COLOR, "Gamestart")
     back_rect = Computer(width*0.562, height*0.65, width*0.212, height*0.13, BACK_COLOR, "Back")
-
+    player_name = "You"
     # 게임 루프
     running = True
     while running:
@@ -105,8 +106,7 @@ def lobby_screen():
                     player_name = input_text_on_surface(screen, font, surface_rect)
                     player_rect.text = player_name
                 elif gamestart_rect.is_clicked(pos):
-                    pass
-                    gameLoop.gameUiLoop(Computer.computer_num)
+                    gameLoop.gameUiLoop(Computer.computer_num,player_name)
                     return
 
                 elif back_rect.is_clicked(pos):

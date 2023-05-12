@@ -43,10 +43,9 @@ class GameGui:
                                                 object_id=ObjectID(object_id="#UserBoard")
                                                 )
         #플레이어 이름 글자 객체 생성
-        pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0,-10,100,100),
+        pygame_gui.elements.UILabel(relative_rect=pygame.Rect(int(width*0.0125),int(height*0.5666),int(width*0.1875),int(height*0.1666)),
                                         text = userName,
                                         manager = self.ui_manager,
-                                        container = user_board,
                                         object_id=ObjectID(object_id="#UserName")    
                                         )
         
