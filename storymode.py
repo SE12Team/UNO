@@ -3,6 +3,8 @@ import setting
 import pygame_gui
 import pygame.freetype
 import time
+import Game
+import gameLoop
 
 
 pygame.init()
@@ -82,8 +84,16 @@ def askBattle(screen,click_stage_num):
             elif event.type == pygame.KEYDOWN:
                 pass
         if yesBox.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
-            Game.gotoGamePy_story(click_stage_num)
+            #Game.gotoGamePy_story(click_stage_num)
             print("YES!",click_stage_num)
+            if click_stage_num == 1:
+                gameLoop.gameUiLoop(1,"You",['mode A', 'None', 'None', 'None', 'None'],"Story A") 
+            elif  click_stage_num == 2:
+                gameLoop.gameUiLoop(3,"You",['mode B', 'Common', 'Common', 'None', 'None'],"Story B")
+            elif  click_stage_num == 3:
+                gameLoop.gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'],"Story C")
+            elif  click_stage_num == 4:
+                gameLoop.gameUiLoop(5,"You",['mode D', 'Common', 'Common', 'Common', 'Common'],"Story D")
             time.sleep(0.1)
         elif noBox.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
             running = False
@@ -150,7 +160,7 @@ def drawStoryMode():
                 setting.running = False
             elif event.type == pygame.KEYDOWN:
                 btnLoc = btnControl(event,btnLoc,btn_instance_list,screen)
-
+                
         
         click_stage_num = clicked_stage(btn_instance_list)
         
