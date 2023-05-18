@@ -127,6 +127,13 @@ def gameUiLoop(computer_num,player_name,computer_game_mode):
             nowColorButton = tmp[2]
             uno_button = tmp[3]
         '''
+        #5턴 마다 색깔 무작위
+        if ('mode C' in computer_game_mode) and (game_turn.randomTurn == 5):
+            game_turn.randomTurn = 0
+            nowColorButton.kill()
+            randomColor = random.choice(['Red', 'Green', 'Yellow', 'Blue'])
+            game.discard_deck.cards[-1].color = randomColor
+            nowColorButton = ui.nowColorButton(game.discard_deck.cards[-1])
         #현재 턴 label 글자 랜더링
         current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
 
@@ -698,4 +705,5 @@ def selectColor(ui_manager,game,deck_button,game_turn,card_manager,player_card_b
         ) 
     return (RedColor,BlueColor,YellowColor,GreenColor)
 
-            
+
+gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'])  

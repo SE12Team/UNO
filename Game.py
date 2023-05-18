@@ -7,6 +7,7 @@ from computer import Computer
 class Turn:
     def __init__(self, players_num):
         # players 리스트의 첫 번째 인자가 항상 먼저 시작
+        self.randomTurn = 0
         self.players_num = players_num
         self.current_player = 0
         self.direction = 1
@@ -16,6 +17,7 @@ class Turn:
         index = self.current_player
         index = (index + self.direction) % self.players_num
         self.current_player = index
+        self.randomTurn += 1
         return index
 
     def skip_direction(self):
