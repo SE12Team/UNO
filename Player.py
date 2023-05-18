@@ -1,3 +1,6 @@
+import random
+from Deck import Deck
+
 class Player:
     def __init__(self, name):
         self.name = name
@@ -8,14 +11,33 @@ class Player:
 
     '''
     처음 게임 시작 시 카드를 분배
-    Parameter: deck -> list, num -> int
-    Return: None
+    Parameter: deck -> list, num -> int, stage -> string
+    Return: deck 
     '''
     # num 지정하지 않을 시 한 장만 손패에 가져옴
-    def setCard(self, deck, num=1):
-        for _ in range(num):
-            card = deck.draw_card()
-            self.hand.append(card)
+    def setCard(self, deck, num=1, stage='s'): 
+        if stage:  # 싱글모드, 스토리 3,4
+            deck.shuffle()
+            for _ in range(num):
+                card = deck.draw_card()
+                self.hand.append(card)
+        elif stage == 'A':
+            random.shuffle(deck.hand[:80]) # 리스트 앞 쪽 숫자 카드 셔플
+            random.shuffle(deck.hand[81:]) # 리스트 뒷 쪽 기술카드 셔플 
+            for _ in range(5):
+                probability = random.uniform(0, 1)
+                if probability < 0.6:
+                    card = deck.draw_card() # 뒷쪽의 기술카드 pop
+                else:
+                    deck.hand.remove(deck.hand[0])
+                    card = deck.draw_card(0) # 앞 쪽의 숫자카드 pop
+                if card:
+                    self.hand.append(card)
+        elif stage == 'B':
+            deck.shuffle()
+            for _ in range(26): # 총 카드수 108개 중 현재카드 1개를 빼고 플레이어들에게 모두 나눠줌.
+                card = deck.draw_card()
+                self.hand.append(card)
         return deck
 
     '''
