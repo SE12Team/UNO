@@ -27,7 +27,7 @@ def gameUisetting():
 
 
 
-def gameUiLoop(computer_num,player_name,computer_game_mode): 
+def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode): 
     width,height,screen,gameBackground = gameUisetting()
     print(computer_game_mode)
 
@@ -706,4 +706,4 @@ def selectColor(ui_manager,game,deck_button,game_turn,card_manager,player_card_b
     return (RedColor,BlueColor,YellowColor,GreenColor)
 
 
-gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'])  
+#gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'])  

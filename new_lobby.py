@@ -88,7 +88,7 @@ def lobby_screen():
                 elif event.ui_element == startButton:
                     computer_num = 5-computer_game_mode.count("None")
                     if computer_num >= 1:
-                        gameLoop.gameUiLoop(computer_num,player_name,computer_game_mode)
+                        gameLoop.gameUiLoop(computer_num,player_name,computer_game_mode,"Single")
             lobby_ui_manager.process_events(event)
 
             
