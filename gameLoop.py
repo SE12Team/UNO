@@ -10,6 +10,7 @@ import computer
 import random
 import sys
 import select
+import achievement
 
 pygame.init()
 
