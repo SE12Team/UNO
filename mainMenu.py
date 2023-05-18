@@ -4,6 +4,7 @@ import setting
 import lobby
 import storymode
 import new_lobby
+import achievement_list
 
 pygame.init()
 
@@ -33,6 +34,8 @@ def start_UNO():
                     setting_menu.get_menu(True, False, False) #
                 elif menu_command == 3:
                     setting.running = False
+                elif menu_command == 4:
+                    achievement_list.show_achievement(True)
             menu_command = 0
 
 
@@ -81,10 +84,12 @@ def mainMenuBtn(key_loc):
     btnPlay = Button(mod_list[setting.get_mod_num()],(33,52),True if key_loc == 0 else False)
     btnSetting = Button("Setting",(33,61),True if key_loc == 1 else False)
     btnExit = Button("Exit",(33,70),True if key_loc == 2 else False)
+    btnAchiev = Button("Achievement",(33,79),True if key_loc == 3 else False)
     
     btnPlay.draw()
     btnSetting.draw()
     btnExit.draw()
+    btnAchiev.draw()
 
     if btnPlay.check_clicked():
         menu_command = 1
@@ -92,7 +97,8 @@ def mainMenuBtn(key_loc):
         menu_command = 2
     elif btnExit.check_clicked():
         menu_command = 3
-    
+    elif btnAchiev.check_clicked():
+        menu_command = 4
     
     instance_list=[btnPlay,btnSetting,btnExit]
 
