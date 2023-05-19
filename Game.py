@@ -95,13 +95,15 @@ class Game:
                 self.say_uno = True
             print(f"{player.name} said UNO!")
             print(required_player.hand)
+            return True
         else:
             print("UNO cannot be said at this time.")
+            return False
     
     # 컴퓨터 플레이어가 우노 외치기
     def press_uno_by_computer(self, current_player):
         random_computer = random.randint(1, len(self.players)-1)
-        self.press_uno_by_user(self.players[random_computer], current_player)
+        return self.press_uno_by_user(self.players[random_computer], current_player)
 
     
     # self.say_uno 값에 따라 턴 당 누군가 먼저 우노를 외쳤으면 그 다음에는 우노를 외치지 못하도록 막기 때문에, 매 턴마다 이 함수를 불러 self.say_uno = False 로 만들어줘야 합니다.
