@@ -56,7 +56,8 @@ def get_icons():
             icon_locked_images.append(scaled_icon)
     
     for index in range(get_length()):
-        if not get_state(index):
+        state = get_state(index) 
+        if not state:
             icon_images[index] = icon_locked_images[index]
     return icon_images
 

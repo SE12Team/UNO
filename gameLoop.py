@@ -807,4 +807,4 @@ def selectColor(ui_manager,game,deck_button,game_turn,card_manager,player_card_b
     return (RedColor,BlueColor,YellowColor,GreenColor)
 
 
-gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'],'Single')  
+#gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'],'Single')  
