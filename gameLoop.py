@@ -11,6 +11,7 @@ import random
 import sys
 import select
 import achievement
+import datetime
 
 pygame.init()
 
@@ -108,6 +109,24 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
     running = True
     time_delta = clock.tick(60)/1000.0
     colorSelectButton= False
+
+    # 업적 관련 플래그 변수 선언
+    draw_skill_flag = False
+
+    def set_achiev(player_index, achiev_index, check_flag):
+        if check_flag:
+            # 유저가 조건을 만족하는 경우
+            if player_index == 0:
+                if not achievement.get_state(achiev_index):
+                    date = datetime.datetime.now()
+                    achievement.set_state(achiev_index, date)
+        else:
+            # 다른 플레이어가 조건을 만족하는 경우
+            if player_index != 0:
+                if not achievement.get_state(achiev_index):
+                    date = datetime.datetime.now()
+                    achievement.set_state(achiev_index, date)
+
     #타이머시작
     start_time = time.time()
     #################################
@@ -238,6 +257,7 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                         game_turn.next_direction()
                         break
                     elif card.value == 'Skip':
+                        
                         game.add_to_discard(card)
                         del game.players[game_turn.current_player].hand[index]
                         game_turn.skip_direction()
@@ -294,6 +314,8 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                 
                 print(f"{game_turn.current_player} : {len(game.players[game_turn.current_player].hand)}")
             if len(game.players[ifWin_player].hand) == 0:
+                # 패배 업적 달성
+                set_achiev(ifWin_player, 1, False)
                 ui.winner(game_turn,game,ifWin_player,screen,time_delta)
                 running = False
                 break
