@@ -7,10 +7,14 @@ thisfolder = os.path.dirname(os.path.abspath(__file__))
 inifile = os.path.join(thisfolder, 'settings.ini')
 inifile_sound = os.path.join(thisfolder, 'settings_sound.ini')
 
+
 config = configparser.RawConfigParser()
 config_sound = configparser.RawConfigParser()
 config.read(inifile)
 config_sound.read(inifile_sound)
+
+
+
 
 # Set Mod
 def set_mod(mod):

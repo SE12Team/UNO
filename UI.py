@@ -187,7 +187,8 @@ class GameGui:
                 if event.type == pygame.QUIT:
                     pygame.quit() 
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:                    
+                    if event.key == pygame.K_ESCAPE:        
+                        print('fffffff')            
                         return
 def updateJson():
     with open('./data/themes/card_theme.json','r') as f:

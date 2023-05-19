@@ -5,6 +5,7 @@ import pygame.freetype
 import time
 import Game
 import gameLoop
+import configparser
 
 
 pygame.init()
@@ -87,13 +88,17 @@ def askBattle(screen,click_stage_num):
             #Game.gotoGamePy_story(click_stage_num)
             print("YES!",click_stage_num)
             if click_stage_num == 1:
-                gameLoop.gameUiLoop(1,"You",['mode A', 'None', 'None', 'None', 'None'],"Story A") 
+                gameLoop.gameUiLoop(1,"You",['mode A', 'None', 'None', 'None', 'None'],"mode A") 
+                break
             elif  click_stage_num == 2:
-                gameLoop.gameUiLoop(3,"You",['mode B', 'Common', 'Common', 'None', 'None'],"Story B")
+                gameLoop.gameUiLoop(3,"You",['mode B', 'Common', 'Common', 'None', 'None'],"mode B")
+                break
             elif  click_stage_num == 3:
-                gameLoop.gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'],"Story C")
+                gameLoop.gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'],"mode C")
+                break
             elif  click_stage_num == 4:
-                gameLoop.gameUiLoop(5,"You",['mode D', 'Common', 'Common', 'Common', 'Common'],"Story D")
+                gameLoop.gameUiLoop(5,"You",['mode D', 'Common', 'Common', 'Common', 'Common'],"mode D")
+                break
             time.sleep(0.1)
         elif noBox.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
             running = False
@@ -101,14 +106,16 @@ def askBattle(screen,click_stage_num):
         pygame.display.update()
 
     
-def clicked_stage(btn_instance_list):
-    if btn_instance_list[1].check_clicked():
+def clicked_stage(btn_instance_list,storymode):
+    storyA ,storyB ,storyC ,storyD  = storymode 
+
+    if (btn_instance_list[1] != 0) and (btn_instance_list[1].check_clicked()):
         return 1
-    elif btn_instance_list[2].check_clicked():
+    elif (btn_instance_list[2] != 0) and (btn_instance_list[2].check_clicked()):
         return 2
-    elif btn_instance_list[3].check_clicked():
+    elif (btn_instance_list[3] != 0) and (btn_instance_list[3].check_clicked()):
         return 3
-    elif btn_instance_list[4].check_clicked():
+    elif (btn_instance_list[4] != 0) and (btn_instance_list[4].check_clicked()):
         return 4
     elif btn_instance_list[5].collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
         return 5
@@ -116,6 +123,13 @@ def clicked_stage(btn_instance_list):
         return 0
             
 def drawStoryMode():
+    config_story = configparser.ConfigParser()
+    config_story.read('storymode.ini')
+    storyA = config_story['StoryMode']['mode A']
+    storyB = config_story['StoryMode']['mode B']
+    storyC = config_story['StoryMode']['mode C']
+    storyD = config_story['StoryMode']['mode D']
+
     btnLoc = 1
     width = pygame.Surface.get_width(setting.screen)
     height = pygame.Surface.get_height(setting.screen)
@@ -126,18 +140,19 @@ def drawStoryMode():
     running = True
     
     btn_instance_list = [0]*6
-    A_button = circle_button(screen,(width*0.1625,height*0.4),'STAGE A')
-    btn_instance_list[1] = A_button
+    if storyA == '1':
+        A_button = circle_button(screen,(width*0.1625,height*0.4),'STAGE A')
+        btn_instance_list[1] = A_button
+    if storyB == '1':
+        B_button = circle_button(screen,(width*0.125,height*0.833),'STAGE B')
+        btn_instance_list[2] = B_button
+    if storyC == '1':    
+        C_button = circle_button(screen,(width*0.525,height*0.55),'STAGE C')
+        btn_instance_list[3] = C_button
+    if storyD == '1':    
+        D_button = circle_button(screen,(width*0.7125,height*0.1),'STAGE D')
+        btn_instance_list[4] = D_button
     
-    B_button = circle_button(screen,(width*0.125,height*0.833),'STAGE B')
-    btn_instance_list[2] = B_button
-    
-    C_button = circle_button(screen,(width*0.525,height*0.55),'STAGE C')
-    btn_instance_list[3] = C_button
-    
-    D_button = circle_button(screen,(width*0.7125,height*0.1),'STAGE D')
-    btn_instance_list[4] = D_button
-   
     
     while running:
         screen.blit(pygame.transform.scale(background,(width,height)),(0,0))
@@ -147,10 +162,14 @@ def drawStoryMode():
         font = pygame.font.Font('freesansbold.ttf',int(height*0.045))
         txt = font.render("Back", True,'black')
         screen.blit(txt,(640,532))
-        A_button.draw(True if btnLoc == 1 else False)
-        B_button.draw(True if btnLoc == 2 else False)
-        C_button.draw(True if btnLoc == 3 else False)
-        D_button.draw(True if btnLoc == 4 else False)
+        if storyA == '1':
+            A_button.draw(True if btnLoc == 1 else False)
+        if storyB == '1':
+            B_button.draw(True if btnLoc == 2 else False)
+        if storyC == '1':
+            C_button.draw(True if btnLoc == 3 else False)
+        if storyD == '1':
+            D_button.draw(True if btnLoc == 4 else False)
         
         
         for event in pygame.event.get():
@@ -162,7 +181,7 @@ def drawStoryMode():
                 btnLoc = btnControl(event,btnLoc,btn_instance_list,screen)
                 
         
-        click_stage_num = clicked_stage(btn_instance_list)
+        click_stage_num = clicked_stage(btn_instance_list,[storyA ,storyB ,storyC ,storyD])
         
         if click_stage_num == 0:
             pass

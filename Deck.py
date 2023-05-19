@@ -143,7 +143,7 @@ class Deck:
         draw_se.set_volume(setting.get_music_se())
         draw_se.play() # 효과음 한 번 재생
         if self.cards == []:
-            self.generate()
+            return -1
         return self.cards.pop(card_index)
          
 

@@ -10,6 +10,7 @@ import computer
 import random
 import sys
 import select
+import configparser
 
 pygame.init()
 
@@ -51,7 +52,7 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
     game = Game.Game(players)
 
     #플레이어, 컴퓨터에게 카드 5장씩 분배
-    game.distrib_card(5)
+    game.distrib_card(5,computer_game_mode,computer_num+1)
 
     #discard_deck 시작카드 추가 및 그리기 및 discard버튼 객체 생성
     tmp = game.dumy_deck.draw_card()
@@ -65,7 +66,6 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
     discard_button = cardUi.cardUI(card_manager,color,value,0,True,1)
 
     #현재 색 버튼 객체 생성
-    #
     nowColorButton = ui.nowColorButton(game.discard_deck.cards[-1])
     
 
@@ -86,7 +86,8 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
     user_board = ui.userBoard(player_name)
     main_board = ui.mainBoard()
     computer_uiList = ui.computerBoard(computer_num)
-    deck_button = cardUi.DeckUi(card_manager)
+    if "mode B" not in computer_game_mode:
+        deck_button = cardUi.DeckUi(card_manager)
     uno_button = ui.unoButton(main_board)
     
 
@@ -206,7 +207,8 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                             current_text.kill()
                             current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
                             #카드들 다시 그리기
-                            deck_button = cardUi.DeckUi(card_manager)
+                            if "mode B" not in computer_game_mode:
+                                deck_button = cardUi.DeckUi(card_manager)
                             tmp =  rendering_every_cards_again(game,computer_card_button_list,player_card_button_list,card_manager,ui,main_board,computer_card_manager)
                             player_card_button_list = tmp[0]
                             computer_card_button_list = tmp[1]
@@ -231,6 +233,7 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                 
                 flag = game.players[game_turn.current_player].canPlay(card,game.discard_deck)
                 if flag == 1:
+                    print(card)
                     if card.value in ['1','2','3','4','5','6','7','8','9','0']:
                         game.add_to_discard(card)
                         del game.players[game_turn.current_player].hand[index]
@@ -251,19 +254,23 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                         game.add_to_discard(card)
                         del game.players[game_turn.current_player].hand[index]
                         game_turn.next_direction()
-                        game.players[game_turn.current_player].setCard(game.dumy_deck,4)
+                        if "mode B" not in computer_game_mode:
+                            game.players[game_turn.current_player].setCard(game.dumy_deck,4)
                         break
                     elif card.value == 'Draw Two':
                         game.add_to_discard(card)
                         del game.players[game_turn.current_player].hand[index]
                         game_turn.next_direction()
-                        game.players[game_turn.current_player].setCard(game.dumy_deck,2)
+                        if "mode B" not in computer_game_mode:
+                            game.players[game_turn.current_player].setCard(game.dumy_deck,2)
                         break
                 elif flag == 2:
+                    print(card)
                     game.add_to_discard(card)
                     del game.players[game_turn.current_player].hand[index]
                     break
                 elif flag == 3:
+                    print(card)
                     dic = {'Blue':0, 'Green':0, 'Red':0, 'Yellow':0}
  
                     for tmp in  game.players[game_turn.current_player].hand:
@@ -278,10 +285,12 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                     if card.color == 'Wild': 
                         pass
                     elif card.color == 'Wild Draw Four':
-                        game.players[game_turn.current_player].setCard(game.dumy_deck,4)
+                        if "mode B" not in computer_game_mode:
+                            game.players[game_turn.current_player].setCard(game.dumy_deck,4)
                         break
                     elif card.color == 'Wild Draw Two':
-                        game.players[game_turn.current_player].setCard(game.dumy_deck,2)
+                        if "mode B" not in computer_game_mode:
+                            game.players[game_turn.current_player].setCard(game.dumy_deck,2)
   
                         break
                     break
@@ -336,7 +345,8 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                     current_text.kill()
                     current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
                     #카드들 다시 그리기
-                    deck_button = cardUi.DeckUi(card_manager)
+                    if "mode B" not in computer_game_mode:
+                        deck_button = cardUi.DeckUi(card_manager)
                     tmp =  rendering_every_cards_again(game,computer_card_button_list,player_card_button_list,card_manager,ui,main_board,computer_card_manager)
                     player_card_button_list = tmp[0]
                     computer_card_button_list = tmp[1]
@@ -345,30 +355,27 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
 
                     start_time = time.time()
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if (event.ui_element == deck_button) and (game_turn.current_player == 0):
-                    if len(game.players[0].hand) <= 12:
-                        game.pop_from_dumy(game.players[game_turn.current_player])
-                        color = game.players[0].hand[-1].color
-                        value = game.players[0].hand[-1].value
-                        card_button = cardUi.cardUI(card_manager,color,value,len(game.players[0].hand)-1,False,len(game.players[0].hand)+1)
-                        player_card_button_list.append(card_button)
-                        #시간초 리셋하고 턴 넘기기
-                        if "mode D" in computer_game_mode:
-                            remain_time = 11
-                        else:
-                            remain_time = 16
-                        game_turn.next_direction()
-                        game.reset_say_uno()
-                        colorSelectButton = False
-                        try:
-                            RedColor.kill()
-                            BlueColor.kill()
-                            GreenColor.kill()
-                            YellowColor.kill()
-                        except:
-                            pass
+                if ("mode B" not in computer_game_mode) and (event.ui_element == deck_button) and (game_turn.current_player == 0):
+                    game.pop_from_dumy(game.players[game_turn.current_player])
+                    color = game.players[0].hand[-1].color
+                    value = game.players[0].hand[-1].value
+                    card_button = cardUi.cardUI(card_manager,color,value,len(game.players[0].hand)-1,False,len(game.players[0].hand)+1)
+                    player_card_button_list.append(card_button)
+                    #시간초 리셋하고 턴 넘기기
+                    if "mode D" in computer_game_mode:
+                        remain_time = 11
                     else:
-                        print("can not draw") 
+                        remain_time = 16
+                    game_turn.next_direction()
+                    game.reset_say_uno()
+                    colorSelectButton = False
+                    try:
+                        RedColor.kill()
+                        BlueColor.kill()
+                        GreenColor.kill()
+                        YellowColor.kill()
+                    except:
+                        pass
                 try:
                     if event.ui_element == RedColor:
                         colorValue ="Red"
@@ -415,13 +422,15 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                                 del game.players[game_turn.current_player].hand[i]
                                 game_turn.next_direction()
                                 game.reset_say_uno()
-                                game.players[game_turn.current_player].setCard(game.dumy_deck,4)
+                                if "mode B" not in computer_game_mode:
+                                    game.players[game_turn.current_player].setCard(deck = game.dumy_deck,num = 4)
                             elif card.value == 'Draw Two':
                                 game.add_to_discard(card)
                                 del game.players[game_turn.current_player].hand[i]
                                 game_turn.next_direction()
                                 game.reset_say_uno()
-                                game.players[game_turn.current_player].setCard(game.dumy_deck,2)
+                                if "mode B" not in computer_game_mode:
+                                    game.players[game_turn.current_player].setCard(deck = game.dumy_deck,num = 2)
                         elif flag == 2:
                             game.add_to_discard(card)
                             del game.players[game_turn.current_player].hand[i]
@@ -441,11 +450,13 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                                 YellowColor.kill()
 
                                 if card.color == 'Wild Draw Four':
-                                    game.players[game_turn.current_player].setCard(game.dumy_deck,4)
+                                    if "mode B" not in computer_game_mode:
+                                        game.players[game_turn.current_player].setCard(deck = game.dumy_deck, num = 4)
                                 elif card.color == 'Wild Draw Two':
-                                    game.players[game_turn.current_player].setCard(game.dumy_deck,2)
+                                    if "mode B" not in computer_game_mode:
+                                        game.players[game_turn.current_player].setCard(deck = game.dumy_deck, num = 2)
                             else:
-                                RedColor,BlueColor,YellowColor,GreenColor = selectColor(ui_manager,game,deck_button,game_turn,card_manager,player_card_button_list)
+                                RedColor,BlueColor,YellowColor,GreenColor = selectColor(ui_manager,game,game_turn,card_manager,player_card_button_list)
                                 colorSelectButton = True
 
 
@@ -475,31 +486,51 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
             card_manager.process_events(event)
             ui_manager.process_events(event)
         #이겼을 때
-        if len(game.players[0].hand) == 0:
+        if len(game.players[0].hand) ==0:
+            print('qqqq')
+            if game_mode != 'Single':
+                config = configparser.ConfigParser()
+                config.read('storymode.ini')
+                if game_mode == 'mode A':
+                    config.set('StoryMode','mode B','1')
+                elif game_mode == 'mode B':
+                    config.set('StoryMode','mode C','1')
+                elif game_mode == 'mode C':    
+                    config.set('StoryMode','mode D','1')
+                
+                with open('storymode.ini','w') as configfile:
+                    config.write(configfile)
+                print('eeeee')
+
+
             ui.winner(game_turn,game,0,screen,time_delta)
             tmp = True
             while tmp:
-                 for event in pygame.event.get():
+                #print('ddd')
+                for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()           
                     elif event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
+                            print('llllllllllllll')
                             tmp = False
             running = False
+            print('cccc')
             return
 
         #Player 0초 될때까지 카드 선택 안하면 카드 한 장 먹고 턴 넘김
-        if (remain_time < 1) and (game_turn.current_player==0) and(len(game.players[0].hand)<=12) :
-            game.pop_from_dumy(game.players[game_turn.current_player])
-            color = game.players[0].hand[-1].color
-            value = game.players[0].hand[-1].value
-            card_button = cardUi.cardUI(card_manager,color,value,len(game.players[0].hand)-1,False,len(game.players[0].hand)+1)
-            player_card_button_list.append(card_button)
-            #시간초 리셋하고 턴 넘기기
-            if "mode D" in computer_game_mode:
-                remain_time = 11
-            else:
-                remain_time = 16
+        if (remain_time < 1) and (game_turn.current_player==0):
+            if "mode B" not in computer_game_mode:
+                game.pop_from_dumy(game.players[game_turn.current_player])
+                color = game.players[0].hand[-1].color
+                value = game.players[0].hand[-1].value
+                card_button = cardUi.cardUI(card_manager,color,value,len(game.players[0].hand)-1,False,len(game.players[0].hand)+1)
+                player_card_button_list.append(card_button)
+                #시간초 리셋하고 턴 넘기기
+                if "mode D" in computer_game_mode:
+                    remain_time = 11
+                else:
+                    remain_time = 16
             game_turn.next_direction()
             game.reset_say_uno()
             colorSelectButton = False
@@ -666,7 +697,7 @@ def rendering_every_cards_again(game,computer_card_button_list,player_card_butto
 
     return (player_card_button_list,computer_card_button_list,nowColorButton,uno_button)
 
-def selectColor(ui_manager,game,deck_button,game_turn,card_manager,player_card_button_list):
+def selectColor(ui_manager,game,game_turn,card_manager,player_card_button_list):
     width = pygame.Surface.get_width(setting.screen)
     height = pygame.Surface.get_height(setting.screen)
     RedColor = pygame_gui.elements.UIButton(
