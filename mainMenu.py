@@ -1,11 +1,10 @@
 from UnoGame_module import *
 import setting_menu
 import setting
-import lobby
 import storymode
 import new_lobby
 import achievement_list
-
+import multi_select
 pygame.init()
 
 mod_list = ['Single play', 'Multi play', 'Story play']
@@ -27,7 +26,7 @@ def start_UNO():
                     if setting.get_mod_num() == 0:
                         new_lobby.lobby_screen()
                     elif setting.get_mod_num() == 1:
-                        print("멀티 플레이 화면")
+                        multi_select.multi_select()
                     else:
                         storymode.drawStoryMode()
                 elif menu_command == 2:

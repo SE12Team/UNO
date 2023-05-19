@@ -12,6 +12,8 @@ import sys
 import select
 import achievement
 import datetime
+import configparser
+import achievement_list
 
 pygame.init()
 
@@ -635,12 +637,19 @@ def stopGameLoop(screen,time_delta):
                                  object_id=ObjectID(class_id="@ESC_button")
                                  )
     
-    esc_exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(int(width*0.325),int(height*0.5833),int(width*0.33125),int(height*0.0833)),
+    ac_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(int(width*0.325),int(height*0.5833),int(width*0.33125),int(height*0.0833)),
+                                 text="Achievement",
+                                 manager=esc_manager,
+                                 starting_height = 2,
+                                 object_id=ObjectID(class_id="@ESC_button")
+                                 )
+    esc_exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(int(width*0.325),int(height*0.6833),int(width*0.33125),int(height*0.0833)),
                                  text="Program Exit",
                                  manager=esc_manager,
                                  starting_height = 2,
                                  object_id=ObjectID(class_id="@ESC_button")
                                  )
+
 
     running = True
     while running:
@@ -649,7 +658,7 @@ def stopGameLoop(screen,time_delta):
                 pygame.quit()           
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:    
-                    running =False
+                    running = False
                     break
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == esc_setting_button:
@@ -659,6 +668,11 @@ def stopGameLoop(screen,time_delta):
                 
                 elif event.ui_element == esc_exit_button:
                     pygame.quit()
+
+                elif event.ui_element == ac_button:
+                    achievement_list.show_achievement(True)
+                    return
+                    
 
             esc_manager.process_events(event)
 
@@ -759,4 +773,4 @@ def selectColor(ui_manager,game,game_turn,card_manager,player_card_button_list):
     return (RedColor,BlueColor,YellowColor,GreenColor)
 
 
-#gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'])  
+gameUiLoop(2,"You",['mode C', 'Common', 'None', 'None', 'None'],'Single')  
