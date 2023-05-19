@@ -22,11 +22,11 @@ def save():
 def set_date(index, date):
     # date = datetime.datetime.now()
     date_str = str(date.year) + '/' + str(date.month) + '/' + str(date.day)
-    config.set('date', index, date_str)
+    config.set('date', str(index), date_str)
     save()
 
 def set_state_true(index):
-    config.set('acheivement', index, bool(True))
+    config.set('acheivement', str(index), bool(True))
     save()
 
 def set_state(index, date):
