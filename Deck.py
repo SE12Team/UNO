@@ -142,7 +142,7 @@ class Deck:
         draw_se = pygame.mixer.Sound("./data/sound/se/draw.mp3")
         draw_se.set_volume(setting.get_music_se())
         draw_se.play() # 효과음 한 번 재생
-        if self.cards == []:
+        if len(self.cards) == 0:
             return -1
         return self.cards.pop(card_index)
          

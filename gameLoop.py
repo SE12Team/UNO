@@ -180,7 +180,7 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
             uno_button = tmp[3]
         '''
         #5턴 마다 색깔 무작위
-        if ('mode C' in computer_game_mode) and (game_turn.randomTurn == 5):
+        if ('mode C' in computer_game_mode) and (game_turn.randomTurn == 4):
             game_turn.randomTurn = 0
             nowColorButton.kill()
             randomColor = random.choice(['Red', 'Green', 'Yellow', 'Blue'])

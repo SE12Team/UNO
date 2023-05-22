@@ -35,7 +35,8 @@ class Player:
                     self.hand.append(card)
         elif stage == 'B':
             deck.shuffle()
-            tmp =  108//player_num
+
+            tmp =  108//(player_num+1)
             for _ in range(tmp): # 총 카드수 108개 중 현재카드 1개를 빼고 플레이어들에게 모두 나눠줌.
                 card = deck.draw_card()
                 self.hand.append(card)

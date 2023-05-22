@@ -44,15 +44,14 @@ class Game:
     # 덱 생성 및 카드 분배
     def distrib_card(self, card_num,computer_game_mode,player_num):
         self.dumy_deck.shuffle()
-        
         for player in self.players:
             if "mode A" in computer_game_mode: 
                 self.dumy_deck = player.setCard(self.dumy_deck, player_num,card_num,stage = 'A')
             elif 'mode B' in computer_game_mode:
-                print("mode B@")
-                self.dumy_deck = player.setCard( self.dumy_deck,player_num, card_num,stage = 'B')
+                print("mode B")
+                self.dumy_deck = player.setCard(self.dumy_deck,player_num, card_num,stage = 'B')
             else:
-                self.dumy_deck = player.setCard( self.dumy_deck,player_num, card_num)
+                self.dumy_deck = player.setCard(self.dumy_deck,player_num, card_num)
 
     def show_winner(self):
         print(self.winner, " wins!")
