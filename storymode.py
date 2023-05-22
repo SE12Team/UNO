@@ -38,7 +38,7 @@ class circle_button:
         else:
             return False 
 
-def btnControl(event,btnLoc,instance_list,screen):
+def btnControl(event,btnLoc,instance_list,screen, draw_bm):
     tmp = btnLoc
     if event.key == setting.get_keymap_right():
         if btnLoc < 4:
@@ -57,10 +57,10 @@ def btnControl(event,btnLoc,instance_list,screen):
     if event.key == setting.get_keymap_check(): # pygame.K_RETURN
         if pygame.Rect.colliderect(instance_list[btnLoc].loc, instance_list[btnLoc].loc):
             print("STAGE %d!!" % btnLoc)
-            askBattle(screen,btnLoc)
+            askBattle(screen,btnLoc,draw_bm)
 
     return btnLoc
-def askBattle(screen,click_stage_num):
+def askBattle(screen,click_stage_num, draw_bm):
     screen = screen
     width = pygame.Surface.get_width(setting.screen)
     height = pygame.Surface.get_height(setting.screen)
@@ -86,6 +86,7 @@ def askBattle(screen,click_stage_num):
                 pass
         if yesBox.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
             #Game.gotoGamePy_story(click_stage_num)
+            draw_bm.fadeout(1000)
             print("YES!",click_stage_num)
             if click_stage_num == 1:
                 gameLoop.gameUiLoop(1,"You",['mode A', 'None', 'None', 'None', 'None'],"mode A") 
@@ -122,7 +123,7 @@ def clicked_stage(btn_instance_list,storymode):
     else:
         return 0
             
-def drawStoryMode():
+def drawStoryMode(draw_bm):
     config_story = configparser.ConfigParser()
     config_story.read('storymode.ini')
     storyA = config_story['StoryMode']['mode A']
@@ -178,7 +179,7 @@ def drawStoryMode():
                 running = False
                 setting.running = False
             elif event.type == pygame.KEYDOWN:
-                btnLoc = btnControl(event,btnLoc,btn_instance_list,screen)
+                btnLoc = btnControl(event,btnLoc,btn_instance_list,screen, draw_bm)
                 
         
         click_stage_num = clicked_stage(btn_instance_list,[storyA ,storyB ,storyC ,storyD])
@@ -189,7 +190,7 @@ def drawStoryMode():
             running = False
         else:
             time.sleep(0.1)
-            askBattle(screen,click_stage_num)
+            askBattle(screen,click_stage_num, draw_bm)
 
         pygame.display.update()
         

@@ -32,6 +32,21 @@ def gameUisetting():
 
 
 def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode): 
+    # 배경음악 재생
+    bm_sound = "./data/sound/bm/y2mate.com - Uno Dos Tres.mp3"
+    if game_mode == "mode A":
+        bm_sound = "./data/sound/bm/y2mate.com - Maplestory BGM  Raindrop Flower 에레브 수련의 숲.mp3"
+    elif game_mode == "mode B":
+        bm_sound = "./data/sound/bm/y2mate.com - 메이플스토리 BGM  커닝시티.mp3"
+    elif game_mode == "mode C":
+        bm_sound == "./data/sound/bm/y2mate.com - 메이플스토리 BGM  페리온.mp3"
+    elif game_mode == "mode D":
+        bm_sound == "./data/sound/bm/y2mate.com - 메이플스토리 BGM  헤네시스.mp3"
+
+    draw_bm = pygame.mixer.Sound(bm_sound)
+    draw_bm.set_volume(setting.get_music_bm())
+    draw_bm.play(-1)
+
     width,height,screen,gameBackground = gameUisetting()
     print(computer_game_mode)
 
@@ -147,6 +162,7 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
     start_time = time.time()
     #################################
     while running:
+
         '''
         if game.can_press_uno(game.players[game_turn.current_player]):
             current_text = ui.rendering_currentTurn(game.players[game_turn.current_player].name, main_board)
@@ -337,6 +353,7 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
                 print(f"{game_turn.current_player} : {len(game.players[game_turn.current_player].hand)}")
             if len(game.players[ifWin_player].hand) == 0:
                 # 패배 업적 달성
+                draw_bm.fadeout(1000)
                 set_achiev(ifWin_player, 1, False)
                 ui.winner(game_turn,game,ifWin_player,screen,time_delta)
                 running = False
@@ -534,6 +551,7 @@ def gameUiLoop(computer_num,player_name,computer_game_mode,game_mode):
             ui_manager.process_events(event)
         #이겼을 때
         if len(game.players[0].hand) == 0:
+            draw_bm.fadeout(1000)
             if game_mode == "Single":
                 # 싱글플레이 승리 업적 달성
                 set_achiev(0, 0, True)

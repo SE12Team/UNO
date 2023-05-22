@@ -5,7 +5,7 @@ import time
 import gameLoop
 
 
-def multi_lobby_screen(mode):
+def multi_lobby_screen(mode, draw_bm):
     screen = pygame.display.set_mode((pygame.Surface.get_width(setting.screen), pygame.Surface.get_height(setting.screen)))
     
     #요소 생성

@@ -11,6 +11,11 @@ mod_list = ['Single play', 'Multi play', 'Story play']
 play_mod = 0
 
 def start_UNO():
+    # 배경음악 재생
+    draw_bm = pygame.mixer.Sound("./data/sound/bm/y2mate.com - 메이플스토리 BGM  엘리니아.mp3")
+    draw_bm.set_volume(setting.get_music_bm())
+    draw_bm.play(-1)
+
     while setting.running:
         timer.tick(fps) # 화면의 초당 프레임 수 설정
         setting.screen.blit(pygame.transform.scale(setting.background,(pygame.Surface.get_width(setting.screen),pygame.Surface.get_height(setting.screen))),(0,0))
@@ -24,11 +29,11 @@ def start_UNO():
                 #setting.main_menu = False
                 if menu_command == 1:
                     if setting.get_mod_num() == 0:
-                        new_lobby.lobby_screen()
+                        new_lobby.lobby_screen(draw_bm)
                     elif setting.get_mod_num() == 1:
-                        multi_select.multi_select()
+                        multi_select.multi_select(draw_bm)
                     else:
-                        storymode.drawStoryMode()
+                        storymode.drawStoryMode(draw_bm)
                 elif menu_command == 2:
                     setting_menu.get_menu(True, False, False) #
                 elif menu_command == 3:

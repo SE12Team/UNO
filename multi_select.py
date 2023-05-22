@@ -3,7 +3,7 @@ import pygame_gui
 import setting
 import gameLoop
 import multiLobby
-def multi_select():
+def multi_select(draw_bm):
     screen = pygame.display.set_mode((pygame.Surface.get_width(setting.screen), pygame.Surface.get_height(setting.screen)))
 
     #요소 생성
@@ -45,9 +45,9 @@ def multi_select():
                 pygame.quit()
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == enterButton:
-                    multiLobby.multi_lobby_screen('enter')
+                    multiLobby.multi_lobby_screen('enter', draw_bm)
                 elif event.ui_element == createButton:
-                    multiLobby.multi_lobby_screen('create')
+                    multiLobby.multi_lobby_screen('create', draw_bm)
                 elif event.ui_element == backButton:
                     running = False
             

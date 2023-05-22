@@ -5,7 +5,7 @@ import time
 import gameLoop
 
 
-def lobby_screen():
+def lobby_screen(draw_bm):
     #화면 생성
     screen = pygame.display.set_mode((pygame.Surface.get_width(setting.screen), pygame.Surface.get_height(setting.screen)))
 
@@ -86,6 +86,7 @@ def lobby_screen():
                 if event.ui_element == backButton:
                     running = False
                 elif event.ui_element == startButton:
+                    draw_bm.fadeout(1000)
                     computer_num = 5-computer_game_mode.count("None")
                     if computer_num >= 1:
                         gameLoop.gameUiLoop(computer_num,player_name,computer_game_mode,"Single")
